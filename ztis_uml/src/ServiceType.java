@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 
 
 public class ServiceType {
@@ -7,6 +8,8 @@ public class ServiceType {
     private List<TypeOfGood> outGoods;
 
     private List<String> negotiableFeatures;
+
+    private Map<TypeOfGood, List<String>> negotiableFeaturesByTypeOfGood;
 
 
     public List<TypeOfGood> getInGoodsTypes() {
@@ -19,6 +22,10 @@ public class ServiceType {
 
     public List<String> getNegotiableFeatures() {
         return negotiableFeatures;
+    }
+
+    public Map<TypeOfGood, List<String>> getNegotiableFeaturesByTypeOfGood() {
+        return negotiableFeaturesByTypeOfGood;
     }
 
 
