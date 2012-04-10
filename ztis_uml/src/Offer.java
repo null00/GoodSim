@@ -1,6 +1,5 @@
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
+import java.util.AbstractList;
 
 /**
  * @author Jaroslaw Szczesniak
@@ -13,8 +12,10 @@ public class Offer implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int sessionId;
-	private Map<Good, Date> goodsIn;
-	private Map<Good, Date> goodsOut;
+	private int contractorId;
+	private int negotiationCount;
+	private AbstractList<Supply> suppliesIn;
+	private AbstractList<Supply> suppliesOut;
 
 	public Offer() {
 
@@ -23,25 +24,44 @@ public class Offer implements Serializable {
 	public int getSessionId() {
 		return this.sessionId;
 	}
-
+	
 	public void setSessionId(int sessionId) {
 		this.sessionId = sessionId;
 	}
 
-	public Map<Good, Date> getGoodsIn() {
-		return goodsIn;
+	public int getContractorId() {
+		return contractorId;
 	}
 
-	public void setGoodsIn(Map<Good, Date> goodsIn) {
-		this.goodsIn = goodsIn;
+	public void setContractorId(int contractorId) {
+		this.contractorId = contractorId;
 	}
 
-	public Map<Good, Date> getGoodsOut() {
-		return goodsOut;
+	public int getNegotiationCount() {
+		return negotiationCount;
 	}
 
-	public void setGoodsOut(Map<Good, Date> goodsOut) {
-		this.goodsOut = goodsOut;
+	public void setNegotiationCount(int negotiationCount) {
+		this.negotiationCount = negotiationCount;
+	}
+	
+	public void addSupplyIn(Supply supplyIn) {
+		this.suppliesIn.add(supplyIn);
 	}
 
+	public AbstractList<Supply> getSuppliesIn() {
+		return suppliesIn;
+	}
+
+	public void setSuppliesIn(AbstractList<Supply> suppliesIn) {
+		this.suppliesIn = suppliesIn;
+	}
+
+	public AbstractList<Supply> getSuppliesOut() {
+		return suppliesOut;
+	}
+
+	public void setSuppliesOut(AbstractList<Supply> suppliesOut) {
+		this.suppliesOut = suppliesOut;
+	}
 }
