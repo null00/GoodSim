@@ -1,28 +1,25 @@
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author Jarosław Szczęśniak
  */
 public class Offer {
 	
-	private Good goodIn;
-	private Good goodOut;
-	private Date dueDate;
+	private Map<Good, Date> goodsIn;
+	private Map<Good, Date> goodsOut;
 	
-	public void setGoodsIn(Good good) {
-		this.goodIn = good;
+	public Map<Good, Date> getGoodsIn() {
+		return goodsIn;
 	}
-	
-	public Good getGoodIn() {
-		return this.goodIn;
+	public void setGoodsIn(Map<Good, Date> goodsIn) {
+		this.goodsIn = goodsIn;
 	}
-	
-	public Good getGoodOut() {
-		return this.goodOut;
+	public Map<Good, Date> getGoodsOut() {
+		return goodsOut;
 	}
-	
-	public Date getDueDate() {
-		return this.dueDate;
-	}
+	public void setGoodsOut(Map<Good, Date> goodsOut) {
+		this.goodsOut = goodsOut;
+	}	
 	
 }
