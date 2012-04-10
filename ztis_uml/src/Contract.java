@@ -1,30 +1,54 @@
-/**
- * @author Jarosław Szczęśniak
- */
-public class Contract {
+import java.io.Serializable;
 
+/**
+ * @author Jaroslaw Szczesniak
+ * @author null@student.agh.edu.pl
+ */
+public class Contract implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int sessionId;
 	private int customerId;
 	private int contractorId;
 	private Offer offer;
-		
+
+	public Contract() {
+
+	}
+
 	public int getSessionId() {
-		return this.sessionId;
+		return sessionId;
 	}
-	
+
+	public void setSessionId(int sessionId) {
+		this.sessionId = sessionId;
+	}
+
 	public int getCustomerId() {
-		return this.customerId;
+		return customerId;
 	}
-	
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
 	public int getContractorId() {
-		return this.contractorId;
+		return contractorId;
 	}
-	
+
+	public void setContractorId(int contractorId) {
+		this.contractorId = contractorId;
+	}
+
 	public Offer getOffer() {
-		return this.offer;
+		return offer;
 	}
-	
-	public void renegotiateContract(Counteroffer coffer) {
-		this.offer = coffer;
+
+	public void setOffer(Offer offer) {
+		this.offer = offer;
 	}
+
 }
