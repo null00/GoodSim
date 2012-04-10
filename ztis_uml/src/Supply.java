@@ -17,25 +17,22 @@ public class Supply implements Serializable {
 	public Supply() {
 		
 	}
-	
-	public Supply(Good good, Date dueDate) {
-		this.good = good;
-		this.dueDate = dueDate;
-	}
-	
+
 	public Date getDueDate() {
 		return dueDate;
 	}
+
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
+
 	public Good getGood() {
 		return good;
 	}
+
 	public void setGood(Good good) {
 		this.good = good;
 	}
-	
-	
-	
+
+		
 }
