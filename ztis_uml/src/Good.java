@@ -5,19 +5,15 @@ import java.util.Map;
  */
 public class Good {
 
-   private TypeOfGood typeOfGood;
+   private String typeOfGoodName;
    private Map<String, Object> attributeValues;
 
-   public TypeOfGood getTypeOfGood() {
-      return typeOfGood;
+   public String getTypeOfGoodName() {
+      return typeOfGoodName;
    }
 
    public Map<String, Object> getAttributeValues() {
       return attributeValues;
-   }
-
-   public Object getAttributeValue(String attributeName) {
-      return attributeValues.get(attributeName);
    }
 
 }
