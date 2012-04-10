@@ -1,165 +1,165 @@
 <class-diagram version="1.0.7" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" corner="BOTTOM_RIGHT" language="java" name="test.jade.Offer" project="Test" 
-    file="/Test/src/test/jade/Offer.java" binary="false">    
-    <position height="169" width="240" x="782" y="115"/>    
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ClientOffer" project="Test" 
+    file="/Test/src/ClientOffer.java" binary="false">    
+    <position height="-1" width="-1" x="699" y="490"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="test.jade.ServiceType" project="Test" 
-    file="/Test/src/test/jade/ServiceType.java" binary="false">    
-    <position height="137" width="259" x="705" y="356"/>    
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="Contract" project="Test" file="/Test/src/Contract.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="749" y="177"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="test.jade.Good" project="Test" 
-    file="/Test/src/test/jade/Good.java" binary="false">    
-    <position height="137" width="258" x="407" y="356"/>    
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="Service" project="Test" file="/Test/src/Service.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1179" y="495"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="test.jade.DokumentIntencji" project="Test" 
-    file="/Test/src/test/jade/DokumentIntencji.java" binary="false">    
-    <position height="-1" width="-1" x="544" y="161"/>    
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="Offer" project="Test" file="/Test/src/Offer.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="338" y="197"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="test.jade.ClientOffer" project="Test" 
-    file="/Test/src/test/jade/ClientOffer.java" binary="false">    
-    <position height="-1" width="-1" x="166" y="417"/>    
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="Good" project="Test" file="/Test/src/Good.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="355" y="759"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="test.jade.TypeOfGood" project="Test" 
-    file="/Test/src/test/jade/TypeOfGood.java" binary="false">    
-    <position height="-1" width="-1" x="543" y="645"/>    
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="TypeOfGood" project="Test" file="/Test/src/TypeOfGood.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="710" y="761"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="test.jade.Counteroffer" project="Test" 
-    file="/Test/src/test/jade/Counteroffer.java" binary="false">    
-    <position height="-1" width="-1" x="1250" y="135"/>    
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="Supply" project="Test" file="/Test/src/Supply.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="241" y="523"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="test.jade.Service" project="Test" 
-    file="/Test/src/test/jade/Service.java" binary="false">    
-    <position height="-1" width="-1" x="1212" y="450"/>    
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="ServiceType" project="Test" 
+    file="/Test/src/ServiceType.java" binary="false">    
+    <position height="-1" width="-1" x="1180" y="743"/>    
     <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="test.jade.Contract" project="Test" 
-    file="/Test/src/test/jade/Contract.java" binary="false">    
-    <position height="-1" width="-1" x="897" y="-35"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <association id="10">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="11" name="InputGoods"/>      
-      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="13">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="14">    
+  <association id="9">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="15" name="goodOut"/>      
-      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+      <attribute id="10" name="suppliesOut">        
+        <position height="16" width="73" x="297" y="388"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="17">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
+  <association id="12">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="13" name="type"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="15">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="16" name="good">        
+        <position height="16" width="32" x="265" y="642"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <association id="18">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="19" name="type"/>      
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="19" name="offer"/>      
       <multiplicity id="20" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="21">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="22" name="outGoods"/>      
-      <multiplicity id="23" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="22" name="typeOfGood"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="24">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="25" name="goodIn"/>      
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="25" name="OutputGoods">        
+        <position height="16" width="81" x="562" y="627"/>      
+      </attribute>      
       <multiplicity id="26" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="27">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="28" name="offer"/>      
-      <multiplicity id="29" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="28" name="suppliesIn">        
+        <position height="16" width="63" x="176" y="380"/>      
+      </attribute>      
+      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="30">    
-    <end type="SOURCE" refId="5"/>    
+  <association id="30">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="31" name="InputGoods">        
+        <position height="16" width="71" x="448" y="612"/>      
+      </attribute>      
+      <multiplicity id="32" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="33">    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <association id="31">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="32" name="inGoods"/>      
-      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <association id="34">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="35" name="OutputGoods"/>      
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="35" name="outGoods">        
+        <position height="16" width="60" x="828" y="794"/>      
+      </attribute>      
       <multiplicity id="36" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="37">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="38" name="typeOfGood"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="38" name="inGoods"/>      
+      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="40">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </dependency>  
   <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
     <operations public="true" package="true" protected="true" private="true"/>  
