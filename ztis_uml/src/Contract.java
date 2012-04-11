@@ -10,36 +10,36 @@ public class Contract implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int sessionId;
-	private int customerId;
-	private int contractorId;
+	private String sessionId;
+	private String customerId;
+	private String contractorId;
 	private Offer offer;
 
 	public Contract() {
 
 	}
 
-	public int getSessionId() {
+	public String getSessionId() {
 		return sessionId;
 	}
 
-	public void setSessionId(int sessionId) {
+	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
 
-	public int getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 
-	public int getContractorId() {
+	public String getContractorId() {
 		return contractorId;
 	}
 
-	public void setContractorId(int contractorId) {
+	public void setContractorId(String contractorId) {
 		this.contractorId = contractorId;
 	}
 

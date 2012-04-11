@@ -1,20 +1,15 @@
-import java.util.List;
-import java.util.Map;
 
+
+import java.util.Map;
 
 public class Service {
 
-    private ServiceType type;
+	private ServiceType type;
 
-    private Map<String, Object> requiredFeaturesByNames;
+	private Map<String, Object> requiredFeaturesByNames;
 
-    public Map<String, Object> getRequiredFeaturesByNames() {
-        return requiredFeaturesByNames;
-    }
-
-
-
-
-
+	public Map<String, Object> getRequiredFeaturesByNames() {
+		return requiredFeaturesByNames;
+	}
 
 }

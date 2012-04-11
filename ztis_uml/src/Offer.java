@@ -11,8 +11,8 @@ public class Offer implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int sessionId;
-	private int contractorId;
+	private String sessionId;
+	private String contractorId;
 	private int negotiationCount;
 	private AbstractList<Supply> suppliesIn;
 	private AbstractList<Supply> suppliesOut;
@@ -21,19 +21,19 @@ public class Offer implements Serializable {
 
 	}
 
-	public int getSessionId() {
+	public String getSessionId() {
 		return this.sessionId;
 	}
 	
-	public void setSessionId(int sessionId) {
+	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
 
-	public int getContractorId() {
+	public String getContractorId() {
 		return contractorId;
 	}
 
-	public void setContractorId(int contractorId) {
+	public void setContractorId(String contractorId) {
 		this.contractorId = contractorId;
 	}
 

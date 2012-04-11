@@ -1,3 +1,5 @@
+
+
 import java.util.List;
 
 /**
@@ -5,14 +7,14 @@ import java.util.List;
  */
 public class TypeOfGood {
 
-   private String name;
-   private List<String> attributes;
+	private String name;
+	private List<String> attributes;
 
-   public String getName() {
-      return name;
-   }
+	public String getName() {
+		return name;
+	}
 
-   public List<String> getAttributes() {
-      return attributes;
-   }
+	public List<String> getAttributes() {
+		return attributes;
+	}
 }

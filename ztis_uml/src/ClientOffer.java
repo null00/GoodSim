@@ -1,28 +1,28 @@
 import java.util.List;
 
 public class ClientOffer {
-	private int ClientId;
+	private String ClientId;
 	private List<Good> InputGoods;
 	private List<Good> OutputGoods;
 
 	public ClientOffer() {
 		super();
 	}
-	
-	public int getClientId() {
+
+	public String getClientId() {
 		return ClientId;
 	}
 
 	public List<TypeOfGood> getInputGoodsTypes() {
-		//TODO
+		// TODO
 		return null;
 	}
 
 	public List<TypeOfGood> getOutputGoodsTypes() {
-		//TODO
+		// TODO
 		return null;
 	}
-	
+
 	public List<Good> getInputGoods() {
 		return InputGoods;
 	}
