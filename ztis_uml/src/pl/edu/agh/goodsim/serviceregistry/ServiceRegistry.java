@@ -5,10 +5,18 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
 
+import pl.edu.agh.goodsim.type.ServiceType;
+import pl.edu.agh.goodsim.type.TypeOfAttribute;
+import pl.edu.agh.goodsim.type.TypeOfGood;
+
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
 public class ServiceRegistry {
+	private Map<String, TypeOfAttribute> typesOfAttributes;
+	private Map<String, TypeOfGood> typesOfGoods;
+	private Map<String, ServiceType> servicesTypes;
+
 	private Map<String, List<String>> registeredServices;
 	private Map<String, Reputation> clientReputations;
 	private Map<String, Reputation> producentReputations;
@@ -53,5 +61,18 @@ public class ServiceRegistry {
 
 	public void putProducentComment(String producentAgentName, int points) {
 		producentReputations.get(producentAgentName).putComment(points);
+	}
+
+	// Global Mappings
+	public TypeOfAttribute getTypeOfAttribute(String typeOfAttributeName) {
+		return typesOfAttributes.get(typeOfAttributeName);
+	}
+
+	public TypeOfGood getTypeOfGood(String typeOfGoodName) {
+		return typesOfGoods.get(typeOfGoodName);
+	}
+
+	public ServiceType getServiceType(String serviceTypeName) {
+		return servicesTypes.get(serviceTypeName);
 	}
 }
