@@ -1,3 +1,4 @@
+package pl.edu.agh.goodsim.type;
 /**
  * @author Krzysztof Mycek
  */

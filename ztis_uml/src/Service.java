@@ -1,6 +1,5 @@
-
-
 import java.util.Map;
+import pl.edu.agh.goodsim.type.ServiceType;
 
 public class Service {
 

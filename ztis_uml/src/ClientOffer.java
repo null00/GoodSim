@@ -1,5 +1,7 @@
 import java.util.List;
 
+import pl.edu.agh.goodsim.type.TypeOfGood;
+
 public class ClientOffer {
 	private String ClientId;
 	private List<Good> InputGoods;
