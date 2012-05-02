@@ -1,5 +1,8 @@
+package pl.edu.agh.goodsim.document;
+
 import java.util.List;
 
+import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.type.TypeOfGood;
 
 public class ClientOffer {

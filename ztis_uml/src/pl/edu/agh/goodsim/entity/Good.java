@@ -1,3 +1,4 @@
+package pl.edu.agh.goodsim.entity;
 import java.util.Map;
 
 /**

@@ -1,5 +1,9 @@
+package pl.edu.agh.goodsim.document;
+
 import java.io.Serializable;
 import java.util.Date;
+
+import pl.edu.agh.goodsim.entity.Good;
 
 /**
  * @author Jaroslaw Szczesniak

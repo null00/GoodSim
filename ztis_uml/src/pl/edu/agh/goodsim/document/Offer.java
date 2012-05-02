@@ -1,3 +1,4 @@
+package pl.edu.agh.goodsim.document;
 import java.io.Serializable;
 import java.util.AbstractList;
 
