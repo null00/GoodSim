@@ -47,8 +47,16 @@ public class ServiceRegistry {
 	}
 
 	public Map<String, List<Reputation>> getServices(List<String> goodsTypes) {
-		// TODO waiting for specification
-		return null;
+		Map<String, List<Reputation>> servicesMap = new HashMap<String, List<Reputation>>();
+
+		for (String goodTypeName : goodsTypes) {
+			List<Reputation> reputationList = new LinkedList<Reputation>();
+			for (String agentName : registeredServices.get(goodTypeName)) {
+				reputationList.add(producentReputations.get(agentName));
+			}
+			servicesMap.put(goodTypeName, reputationList);
+		}
+		return servicesMap;
 	}
 
 	public Reputation getClientComment(String clientAgentName) {
