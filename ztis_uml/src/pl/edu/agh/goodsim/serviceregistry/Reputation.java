@@ -7,6 +7,7 @@ public class Reputation {
 	private String agentName;
 	private int positives;
 	private int negatives; // negatives is positive int
+	private int transactionCount;
 
 	public Reputation(String agentName, int positives, int negatives) {
 		super();
@@ -20,6 +21,7 @@ public class Reputation {
 	}
 
 	public void putComment(int points) {
+		transactionCount++;
 		if (points > 0)
 			positives += points;
 		else if (points < 0)
@@ -38,5 +40,9 @@ public class Reputation {
 
 	public int getNegatives() {
 		return negatives;
+	}
+
+	public int getTransactionCount() {
+		return transactionCount;
 	}
 }
