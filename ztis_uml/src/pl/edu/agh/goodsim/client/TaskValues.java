@@ -1,17 +1,20 @@
 package pl.edu.agh.goodsim.client;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.document.Contract;
+import pl.edu.agh.goodsim.entity.Good;
 
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
-public class TaskValues {
+public class TaskValues implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Contract contract;
 	private List<List<Map<String, OfferStatus>>> offers;
 	private List<Good> goodsForSale;
@@ -53,4 +56,13 @@ public class TaskValues {
 	public List<Good> getGoodsReceived() {
 		return goodsReceived;
 	}
+
+	public void addGoodForSale(Good goodForSale) {
+		this.goodsForSale.add(goodForSale);
+	}
+
+	public void addGoodReceived(Good goodReceived) {
+		this.goodsReceived.add(goodReceived);
+	}
+	
 }
