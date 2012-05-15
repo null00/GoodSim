@@ -78,7 +78,7 @@ public class ClientAgent extends Agent {
 	 */
 	
 	public void receiveGood(Good good, String sessionID, int container) {
-		// XXX: is the 
+		// XXX: is the good verification ok?
 		TaskValues contract = contracts.get(sessionID);
 		Offer offer = contract.getContract().getOffer();
 		switch (container) {
