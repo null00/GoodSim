@@ -1,40 +1,53 @@
 package pl.edu.agh.goodsim.client;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import jade.core.Agent;
+
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
+import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
+import pl.edu.agh.goodsim.type.ContractStatus;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
-public class ClientAgent {
+public class ClientAgent extends Agent {
+
+	private static final long serialVersionUID = 1L;
 	private Map<String, TaskValues> contracts;
 
 	public ClientAgent() {
 
 	}
 
+	@Override
+	protected void setup() {
+		// XXX: Jade Agent initialization 
+		System.out.println("Hello! I am the ClientAgent: " + getAID().getName());
+	}
+	
+	@Override
+	protected void takeDown() {
+		// XXX: Clean up the agent
+		System.out.println("I'm dead!");
+	}
+
+	/*
+	 * 	 ====================
+	 *	 MAS FUNCTIONS (JADE)
+	 * 	 ====================
+	 */
+	
 	public void receiveOffer(Offer offer) {
 		Contract contract = new Contract(offer);
 		contracts.put(offer.getSessionId(), new TaskValues(contract));
@@ -58,17 +71,27 @@ public class ClientAgent {
 		contracts.put(offer.getSessionId(), new TaskValues(contract));
 	}
 
+	/*
+	 * 	 =====================================================
+	 *	 MAS/JMX FUNCTIONS (What we can delegate to the agent)
+	 * 	 =====================================================
+	 */
+	
 	public void receiveGood(Good good, String sessionID, int container) {
-		// TODO: check the type of good with the intention document
-		// (ClientOffer)
+		// XXX: is the 
 		TaskValues contract = contracts.get(sessionID);
+		Offer offer = contract.getContract().getOffer();
 		switch (container) {
 		case 1: {
-			contract.addGoodForSale(good);
+			if(inSupplies(good, offer.getSuppliesOut())) {
+				contract.addGoodForSale(good);
+			}
 			break;
 		}
 		case 2: {
-			contract.addGoodReceived(good);
+			if(inSupplies(good, offer.getSuppliesIn())) {
+				contract.addGoodReceived(good);
+			}
 			break;
 		}
 		default: {
@@ -77,22 +100,43 @@ public class ClientAgent {
 		}
 		}
 	}
+	
+	private boolean inSupplies(Good good, List<Supply> supplies) {
+		Iterator<Supply> iter = supplies.iterator();
+		while(iter.hasNext()) {
+			Supply supply = iter.next();
+			if(supply.getGood().equals(good)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * 	 =====================================================
+	 *	 MAS/JMX FUNCTIONS (What we can delegate to the agent)
+	 * 	 =====================================================
+	 */
 
-	public List<String> getContractList(int attributes) {
-		// TODO: filter the contracts list
-		// TODO: need the "phase" field in Contract!
-
-		List<String> filteredContracts = new LinkedList<String>();
-		Iterator it = contracts.entrySet().iterator();
+	public Set<String> getContractList(ContractStatus status) {
+		// TODO: is this the way it should work?
+		Set<String> filteredContracts = new HashSet<String>();
+		Iterator<Map.Entry<String, TaskValues>> it = contracts.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry pairs = (Map.Entry) it.next();
+			Entry<String, TaskValues> pairs = it.next();
 			String sessionID = (String) pairs.getKey();
 			TaskValues contract = (TaskValues) pairs.getValue();
-			// if(contract.getContract().getPhase() == attributes)
-			// filteredContracts.add(sessionID);
+			 if(contract.getContract().getContractStatus() == status)
+				 filteredContracts.add(sessionID);
 		}
 		return filteredContracts;
 	}
+	
+	/*
+	 * 	 =============
+	 *	 JMX FUNCTIONS
+	 * 	 =============
+	 */
 
 	public String getTaskValues(String sessionID) {
 		TaskValues contract = (TaskValues) contracts.get(sessionID);
@@ -112,7 +156,7 @@ public class ClientAgent {
 	}
 
 	public int getRenegotiationCount(String sessionID) {
-		// TODO: dunno if this is the way this should go
+		// FIXME: dunno if this is the way this should go
 		TaskValues contract = contracts.get(sessionID);
 		return contract.getContract().getOffer().getNegotiationCount();
 	}
@@ -123,7 +167,7 @@ public class ClientAgent {
 	}
 
 	public List<String> getOffer() {
-		// TODO: first we have to change the offers list from TaskValues 
+		// TODO: first we have to change the offers list from TaskValues
 		return null;
 	}
 
@@ -144,6 +188,12 @@ public class ClientAgent {
 	public void sendIntentions(String sessionId, int renegotiation, int offerNumber, String contractorId) {
 		// TODO:
 	}
+	
+	/*
+	 * 	 ==========================================
+	 *	 MAS/JMX EVENTS (What can agent do himself)
+	 * 	 ==========================================
+	 */
 
 	public void getServices(List<String> goodsTypes) {
 		// TODO:

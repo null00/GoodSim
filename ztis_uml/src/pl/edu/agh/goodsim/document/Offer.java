@@ -3,14 +3,10 @@ import java.io.Serializable;
 import java.util.AbstractList;
 
 /**
- * @author Jaroslaw Szczesniak
- * @author null@student.agh.edu.pl
+ * @author Jaroslaw Szczesniak (null@student.agh.edu.pl)
  */
 public class Offer implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String sessionId;
 	private String contractorId;

@@ -6,8 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.document.Contract;
+import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.entity.Good;
+import pl.edu.agh.goodsim.type.ContractStatus;
 
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
@@ -20,18 +23,27 @@ public class TaskValues implements Serializable {
 	private List<Good> goodsForSale;
 	private List<Good> goodsReceived;
 
+//	public TaskValues(Offer offer, ClientOffer intention) {
+//		init();
+//		Contract contract = new Contract();
+//		contract.setContractStatus(ContractStatus.NEGOTIATION);
+//		OfferStatus os = new OfferStatus(offer.getContractorId(), intention);
+//		Map<String, OfferStatus> mapa = ((LinkedList<Map<String, OfferStatus>>) ((LinkedList<List<Map<String, OfferStatus>>>) offers).getLast()).getLast();
+//		mapa.put(offer.getContractorId(), os);
+//	}
+	
 	public TaskValues(Contract contract) {
 		this.contract = contract;
 		// offers = new LinkedList<List<Map<String, OfferStatus>>>();
-		initOffers();
-		goodsForSale = new LinkedList<Good>();
-		goodsReceived = new LinkedList<Good>();
+		init();
 	}
 
-	public void initOffers() {
+	public void init() {
+		goodsForSale = new LinkedList<Good>();
+		goodsReceived = new LinkedList<Good>();
+		
 		List<Map<String, OfferStatus>> negotiation = new LinkedList<Map<String, OfferStatus>>();
 		Map<String, OfferStatus> offerStatusMap = new HashMap<String, OfferStatus>();
-
 		offers = new LinkedList<List<Map<String, OfferStatus>>>();
 		offers.add(negotiation);
 		negotiation.add(offerStatusMap);
