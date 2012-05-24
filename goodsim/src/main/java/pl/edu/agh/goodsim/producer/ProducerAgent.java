@@ -1,4 +1,4 @@
-package pl.edu.agh.goodsim.producent;
+package pl.edu.agh.goodsim.producer;
 
 import pl.edu.agh.goodsim.document.ClientOffer;
 
