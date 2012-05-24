@@ -1,1 +1,6 @@
 bin/
+
+/goodsim/.settings
+/goodsim/.project
+/goodsim/.classpath
+/goodsim/target

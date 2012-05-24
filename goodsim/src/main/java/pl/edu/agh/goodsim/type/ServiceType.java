@@ -4,6 +4,9 @@ import java.util.Map;
 
 
 public class ServiceType {
+    
+    private String name;
+    
     private List<TypeOfGood> inGoods;
 
     private List<TypeOfGood> outGoods;
