@@ -1,4 +1,8 @@
 package pl.edu.agh.goodsim.entity;
+
+import com.google.common.collect.MapDifference;
+import com.google.common.collect.Maps;
+
 import java.util.Map;
 
 /**
@@ -6,15 +10,29 @@ import java.util.Map;
  */
 public class Good {
 
-   private String typeOfGoodName;
-   private Map<String, Object> attributeValues;
+    private String typeOfGoodName;
+    private Map<String, Object> attributeValues;
 
-   public String getTypeOfGoodName() {
-      return typeOfGoodName;
-   }
+    public String getTypeOfGoodName() {
+        return typeOfGoodName;
+    }
 
-   public Map<String, Object> getAttributeValues() {
-      return attributeValues;
-   }
+    public Map<String, Object> getAttributeValues() {
+        return attributeValues;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Good good = (Good) o;
+
+        if (typeOfGoodName != null ? !typeOfGoodName.equals(good.typeOfGoodName) : good.typeOfGoodName != null)
+            return false;
+
+        MapDifference<String, Object> difference = Maps.difference(this.attributeValues, good.attributeValues);
+        return difference.areEqual();
+    }
 
 }
