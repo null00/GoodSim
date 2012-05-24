@@ -1,11 +1,12 @@
 package pl.edu.agh.goodsim.producer;
 
+import pl.edu.agh.goodsim.client.ClientAgent;
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.entity.Good;
 
 import java.util.List;
 
-public class ProducerAgent {
+public class ProducerAgent extends ClientAgent {
     private List<Good> storedGoods;
 
     public void receiveIntention(ClientOffer offer) {
