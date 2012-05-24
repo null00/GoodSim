@@ -31,8 +31,7 @@ public class Good {
         if (typeOfGoodName != null ? !typeOfGoodName.equals(good.typeOfGoodName) : good.typeOfGoodName != null)
             return false;
 
-        MapDifference<String, Object> difference = Maps.difference(this.attributeValues, good.attributeValues);
-        return difference.areEqual();
+        return Maps.difference(this.attributeValues, good.attributeValues).areEqual();
     }
 
 }
