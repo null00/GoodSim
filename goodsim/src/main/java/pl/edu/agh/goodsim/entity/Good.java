@@ -1,6 +1,5 @@
 package pl.edu.agh.goodsim.entity;
 
-import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 
 import java.util.Map;
