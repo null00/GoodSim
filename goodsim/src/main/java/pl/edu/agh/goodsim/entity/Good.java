@@ -10,13 +10,13 @@ import java.util.Map;
 public class Good {
 
     private String typeOfGoodName;
-    private Map<String, Object> attributeValues;
+    private Map<Double, Object> attributeValues;
 
     public String getTypeOfGoodName() {
         return typeOfGoodName;
     }
 
-    public Map<String, Object> getAttributeValues() {
+    public Map<Double, Object> getAttributeValues() {
         return attributeValues;
     }
 
