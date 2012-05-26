@@ -1,9 +1,9 @@
 package pl.edu.agh.goodsim.document;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.goodsim.entity.Good;
-import pl.edu.agh.goodsim.type.TypeOfGood;
 
 public class ClientOffer {
 	private String ClientId;
@@ -18,14 +18,20 @@ public class ClientOffer {
 		return ClientId;
 	}
 
-	public List<TypeOfGood> getInputGoodsTypes() {
-		// TODO
-		return null;
+	public List<String> getInputGoodsTypes() {
+		List<String> inputGoodTypes = new LinkedList<String>();
+		for(Good good : InputGoods) {
+			inputGoodTypes.add(good.getTypeOfGoodName());
+		}
+		return inputGoodTypes;
 	}
 
-	public List<TypeOfGood> getOutputGoodsTypes() {
-		// TODO
-		return null;
+	public List<String> getOutputGoodsTypes() {
+		List<String> outputGoodTypes = new LinkedList<String>();
+		for(Good good : OutputGoods) {
+			outputGoodTypes.add(good.getTypeOfGoodName());
+		}
+		return outputGoodTypes;
 	}
 
 	public List<Good> getInputGoods() {
