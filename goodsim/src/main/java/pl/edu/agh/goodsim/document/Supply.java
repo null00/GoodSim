@@ -6,14 +6,10 @@ import java.util.Date;
 import pl.edu.agh.goodsim.entity.Good;
 
 /**
- * @author Jaroslaw Szczesniak
- * @author null@student.agh.edu.pl
+ * @author Jaroslaw Szczesniak (null@student.agh.edu.pl)
  */
 public class Supply implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Date dueDate;
 	private Good good;
