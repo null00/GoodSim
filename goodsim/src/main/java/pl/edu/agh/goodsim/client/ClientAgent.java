@@ -7,7 +7,7 @@ import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
-import pl.edu.agh.goodsim.type.ContractStatus;
+import pl.edu.agh.goodsim.type.ContractStatusEnum;
 import pl.edu.agh.goodsim.type.OfferStatusEnum;
 
 import java.util.*;
@@ -59,6 +59,29 @@ public class ClientAgent extends Agent {
 		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorId);
 		OfferStatus offerStatus = offerStatusList.getLast();
 		offerStatus.setStatus(OfferStatusEnum.CANCEL);
+		if(checkRefusalStatuses(taskValues)) {
+			// XXX: przerwanie kontraktu 
+			taskValues.getContract().setContractStatus(ContractStatusEnum.CLOSED);
+		}
+	}
+
+	private boolean checkRefusalStatuses(TaskValues taskValues) {
+		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
+		Map<String, List<OfferStatus>> offerStatusMap = offers.getLast();
+		for (Entry<String, List<OfferStatus>> pairs : offerStatusMap.entrySet()) {
+			List<OfferStatus> statuses = pairs.getValue();
+			for (OfferStatus status : statuses) {
+				if (status.getStatus() != OfferStatusEnum.CANCEL)
+					return false;
+			}
+		}
+		return true;
+
+		//		receiveRefusal - tak samo to - ale tu widzê na koñcu tej metody wykonanie metody prywatnej nazywaj¹cej siê np. CheckRefusalStatuses. Jej funkcj¹ by³o by:
+		//		1. Przelecieæ siê po wszystkich contractorId z mapy taskValues.offers.getLast().
+		//		2. Sprawdziæ czy wszystkie s¹ w stanie 0x9
+		//		3. Jak tak to znaczy, ¿e le¿¹ wszystkie negocjacje i trzeba przerwaæ w zale¿noœci w jakim stanie jest kontrakt - negocjacje, anulowaæ wykonanie, przerwaæ wykonanie.
+
 	}
 
 	public void reciveContractSign(String sessionId, String contractorId) {
@@ -127,10 +150,10 @@ public class ClientAgent extends Agent {
 	 * =====================================================
 	 */
 
-	public Set<String> getContractList(ContractStatus status) {
+	public Set<String> getContractList(ContractStatusEnum status) {
 		Set<String> filteredContracts = new HashSet<String>();
 		for (Entry<String, TaskValues> pairs : contracts.entrySet()) {
-			ContractStatus contractStatus = pairs.getValue().getContract().getContractStatus();
+			ContractStatusEnum contractStatus = pairs.getValue().getContract().getContractStatus();
 			if ((contractStatus.getValue() & status.getValue()) != 0) {
 				String sessionID = pairs.getKey();
 				filteredContracts.add(sessionID);
@@ -199,7 +222,7 @@ public class ClientAgent extends Agent {
 
 	/*
 	 * ========================================== 
-	 * MAS/JMX EVENTS (What can agent do himself)
+	 * MAS/JMX EVENTS (What can agent do himself) 
 	 * ==========================================
 	 */
 
