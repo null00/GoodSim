@@ -4,7 +4,7 @@ package pl.edu.agh.goodsim.type;
 /**
  * @author Jaroslaw Szczesniak (null@student.agh.edu.pl)
  */
-public enum ContractStatus {
+public enum ContractStatusEnum {
     NEGOTIATION(0x1),
     AWAITING(0x2),
     REALISATION(0x4),
@@ -15,7 +15,7 @@ public enum ContractStatus {
 
     private int value;
 
-    ContractStatus(int value) {
+    ContractStatusEnum(int value) {
         this.value = value;
     }
 
