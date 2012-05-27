@@ -76,12 +76,6 @@ public class ClientAgent extends Agent {
 			}
 		}
 		return true;
-
-		//		receiveRefusal - tak samo to - ale tu widzê na koñcu tej metody wykonanie metody prywatnej nazywaj¹cej siê np. CheckRefusalStatuses. Jej funkcj¹ by³o by:
-		//		1. Przelecieæ siê po wszystkich contractorId z mapy taskValues.offers.getLast().
-		//		2. Sprawdziæ czy wszystkie s¹ w stanie 0x9
-		//		3. Jak tak to znaczy, ¿e le¿¹ wszystkie negocjacje i trzeba przerwaæ w zale¿noœci w jakim stanie jest kontrakt - negocjacje, anulowaæ wykonanie, przerwaæ wykonanie.
-
 	}
 
 	public void reciveContractSign(String sessionId, String contractorId) {
