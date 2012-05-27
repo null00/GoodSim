@@ -4,6 +4,7 @@ import java.util.Date;
 
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.document.Offer;
+import pl.edu.agh.goodsim.type.OfferStatusEnum;
 
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
@@ -14,6 +15,7 @@ public class OfferStatus {
 	private Date sendedIntentionDate;
 	private Date receivedDate;
 	private Offer offer;
+	private OfferStatusEnum status;
 	private Boolean refusal;
 
 	public OfferStatus(String contractorid, ClientOffer intention) {
@@ -60,5 +62,13 @@ public class OfferStatus {
 
 	public ClientOffer getIntention() {
 		return intention;
+	}
+
+	public void setStatus(OfferStatusEnum status) {
+		this.status = status;
+	}
+
+	public OfferStatusEnum getStatus() {
+		return status;
 	}
 }
