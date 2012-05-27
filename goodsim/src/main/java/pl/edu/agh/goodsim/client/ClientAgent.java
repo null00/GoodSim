@@ -1,7 +1,15 @@
 package pl.edu.agh.goodsim.client;
 
-import com.thoughtworks.xstream.XStream;
 import jade.core.Agent;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
@@ -10,8 +18,7 @@ import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.type.ContractStatusEnum;
 import pl.edu.agh.goodsim.type.OfferStatusEnum;
 
-import java.util.*;
-import java.util.Map.Entry;
+import com.thoughtworks.xstream.XStream;
 
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
@@ -220,31 +227,31 @@ public class ClientAgent extends Agent {
 	 * ==========================================
 	 */
 
-	public void getServices(List<String> goodsTypes) {
+	private void getServices(List<String> goodsTypes) {
 		// TODO:
 	}
 
-	void sendIntention(ClientOffer intention) {
+	private void sendIntention(ClientOffer intention) {
 		// TODO:
 	}
 
-	void sendCounterOffer(ClientOffer clientOffer) {
+	private void sendCounterOffer(ClientOffer clientOffer) {
 		// TODO:
 	}
 
-	void sendNegotiationBreak(String sessionid, String contractorid) {
+	private void sendNegotiationBreak(String sessionid, String contractorid) {
 		// TODO:
 	}
 
-	void signContract(Contract contract) {
+	private void signContract(Contract contract) {
 		// TODO:
 	}
 
-	void sendRenegotiation(ClientOffer clientOffer) {
+	private void sendRenegotiation(ClientOffer clientOffer) {
 		// TODO:
 	}
 
-	void sendGood(String sessionid, String contractorid, Good good) {
+	private void sendGood(String sessionid, String contractorid, Good good) {
 		// TODO:
 	}
 }
