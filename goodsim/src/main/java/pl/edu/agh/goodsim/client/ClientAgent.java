@@ -82,8 +82,8 @@ public class ClientAgent extends Agent {
 	}
 
 	/*
-	 * ===================================================== MAS/JMX FUNCTIONS
-	 * (What we can delegate to the agent)
+	 * ===================================================== 
+	 * MAS/JMX FUNCTIONS (What we can delegate to the agent)
 	 * =====================================================
 	 */
 
@@ -122,8 +122,8 @@ public class ClientAgent extends Agent {
 	}
 
 	/*
-	 * ===================================================== MAS/JMX FUNCTIONS
-	 * (What we can delegate to the agent)
+	 * ===================================================== 
+	 * MAS/JMX FUNCTIONS (What we can delegate to the agent)
 	 * =====================================================
 	 */
 
@@ -198,8 +198,9 @@ public class ClientAgent extends Agent {
 	}
 
 	/*
-	 * ========================================== MAS/JMX EVENTS (What can agent
-	 * do himself) ==========================================
+	 * ========================================== 
+	 * MAS/JMX EVENTS (What can agent do himself)
+	 * ==========================================
 	 */
 
 	public void getServices(List<String> goodsTypes) {
