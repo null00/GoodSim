@@ -20,7 +20,7 @@ public class ClientOffer {
 
 	public List<String> getInputGoodsTypes() {
 		List<String> inputGoodTypes = new LinkedList<String>();
-		for(Good good : InputGoods) {
+		for (Good good : InputGoods) {
 			inputGoodTypes.add(good.getTypeOfGoodName());
 		}
 		return inputGoodTypes;
@@ -28,7 +28,7 @@ public class ClientOffer {
 
 	public List<String> getOutputGoodsTypes() {
 		List<String> outputGoodTypes = new LinkedList<String>();
-		for(Good good : OutputGoods) {
+		for (Good good : OutputGoods) {
 			outputGoodTypes.add(good.getTypeOfGoodName());
 		}
 		return outputGoodTypes;

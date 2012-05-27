@@ -1,7 +1,7 @@
 package pl.edu.agh.goodsim.document;
 import java.io.Serializable;
 
-import pl.edu.agh.goodsim.type.ContractStatus;
+import pl.edu.agh.goodsim.type.ContractStatusEnum;
 
 /**
  * @author Jaroslaw Szczesniak (null@student.agh.edu.pl)
@@ -12,7 +12,7 @@ public class Contract implements Serializable {
 	private String sessionId;
 	private String customerId;
 	private String contractorId;
-	private ContractStatus status;
+	private ContractStatusEnum status;
 	private Offer offer;
 
 	public Contract() {
@@ -61,11 +61,11 @@ public class Contract implements Serializable {
 		this.offer = offer;
 	}
 	
-	public void setContractStatus(ContractStatus status) {
+	public void setContractStatus(ContractStatusEnum status) {
 		this.status = status;
 	}
 	
-	public ContractStatus getContractStatus() {
+	public ContractStatusEnum getContractStatus() {
 		return this.status;
 	}
 
