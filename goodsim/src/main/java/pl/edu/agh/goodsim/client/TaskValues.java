@@ -19,6 +19,10 @@ public class TaskValues implements Serializable {
 	private List<Good> goodsForSale;
 	private List<Good> goodsReceived;
 	
+	public TaskValues() {
+		init();
+	}
+	
 	public TaskValues(Contract contract) {
 		this.contract = contract;
 		init();
