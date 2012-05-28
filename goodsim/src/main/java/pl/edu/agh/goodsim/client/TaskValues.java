@@ -1,6 +1,7 @@
 package pl.edu.agh.goodsim.client;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,19 +20,18 @@ public class TaskValues implements Serializable {
 	private List<Good> goodsForSale;
 	private List<Good> goodsReceived;
 	
-	public TaskValues() {
-		init();
-	}
-	
 	public TaskValues(Contract contract) {
 		this.contract = contract;
-		init();
-	}
-
-	public void init() {
 		goodsForSale = new LinkedList<Good>();
 		goodsReceived = new LinkedList<Good>();
+	}
+
+	public void initNegotiationHistory(String contractorId) {
 		offers = new LinkedList<Map<String, List<OfferStatus>>>();
+		Map<String, List<OfferStatus>> offerStatusMap = new HashMap<String, List<OfferStatus>>();
+		List<OfferStatus> offerStatusList = new LinkedList<OfferStatus>();
+		offerStatusMap.put(contractorId, offerStatusList);
+		offers.add(offerStatusMap);
 	}
 
 	public Contract getContract() {
