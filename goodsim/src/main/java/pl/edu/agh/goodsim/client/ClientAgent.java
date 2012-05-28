@@ -15,6 +15,8 @@ import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
+import pl.edu.agh.goodsim.serviceregistry.Reputation;
+import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 import pl.edu.agh.goodsim.type.ContractStatusEnum;
 import pl.edu.agh.goodsim.type.OfferStatusEnum;
 
@@ -27,9 +29,11 @@ public class ClientAgent extends Agent {
 
 	private static final long serialVersionUID = 1L;
 	private Map<String, TaskValues> contracts;
+	private ServiceRegistry _serviceRegistry;
 
 	public ClientAgent() {
-
+		// TODO: Doesn't ServiceRegistry supposed to be limited to one instance?
+		_serviceRegistry = new ServiceRegistry();
 	}
 
 	@Override
@@ -207,10 +211,14 @@ public class ClientAgent extends Agent {
 	}
 
 	public void prepareTask(String sessionId, String mainSessionId, List<String> goodsTypes) {
-		// FIXME:
+		// FIXME: We do not have the contractorId here!
 		Offer offer = new Offer();
 		Contract contract = new Contract(offer);
-		contracts.put(sessionId, new TaskValues(contract));
+		TaskValues taskValues = new TaskValues(contract);
+		Map<String, List<Reputation>> servicesMap = _serviceRegistry.getServices(goodsTypes);
+		taskValues.initNegotiationHistory();
+		//TODO: 4. Utworzenie dla każdej znalezionej usługi obiektu klasy OfferStatus i umieszczeniu ich w mapie (w taskValues).
+		contracts.put(sessionId, taskValues);
 	}
 
 	public void prepareIntention(String intention) {
