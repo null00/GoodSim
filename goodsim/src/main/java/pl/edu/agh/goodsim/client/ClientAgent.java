@@ -222,7 +222,11 @@ public class ClientAgent extends Agent {
 	}
 
 	public void prepareIntention(String intention) {
-		// TODO:
+		// FIXME: What to do with the clientOffer object?
+		ClientOffer clientOffer = new ClientOffer();
+		XStream xStream = new XStream();
+		xStream.alias("ClientOffer", ClientOffer.class);
+		xStream.fromXML(intention, clientOffer);
 	}
 
 	public void sendIntentions(String sessionId, int renegotiation, int offerNumber, String contractorId) {
