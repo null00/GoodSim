@@ -26,11 +26,11 @@ public class TaskValues implements Serializable {
 		goodsReceived = new LinkedList<Good>();
 	}
 
-	public void initNegotiationHistory(String contractorId) {
+	public void initNegotiationHistory() {
 		offers = new LinkedList<Map<String, List<OfferStatus>>>();
 		Map<String, List<OfferStatus>> offerStatusMap = new HashMap<String, List<OfferStatus>>();
 		List<OfferStatus> offerStatusList = new LinkedList<OfferStatus>();
-		offerStatusMap.put(contractorId, offerStatusList);
+		offerStatusMap.put(contract.getContractorId(), offerStatusList);
 		offers.add(offerStatusMap);
 	}
 
