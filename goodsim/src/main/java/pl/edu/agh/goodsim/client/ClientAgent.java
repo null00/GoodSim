@@ -194,9 +194,12 @@ public class ClientAgent extends Agent {
 		return contract.getContract().getOffer().getNegotiationCount();
 	}
 
-	public int getOfferCount(String sessionid, int renegotiation) {
-		// TODO: first we have to change the offers list from TaskValues
-		return 0;
+	public int getOfferCount(String sessionID, int renegotiation, String contractorID) {
+		TaskValues taskValues = contracts.get(sessionID);
+		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
+		Map<String, List<OfferStatus>> offerStatusMap = offers.get(renegotiation);
+		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
+		return offerStatusList.size();
 	}
 
 	public List<String> getOffer() {
