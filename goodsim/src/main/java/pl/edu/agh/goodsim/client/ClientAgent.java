@@ -204,10 +204,18 @@ public class ClientAgent extends Agent {
 		return null;
 	}
 
-	public String getOffer(String sessionid, int renegotiation, int countOffer, String contractorid) {
-		// TODO: Zwraca zserializowaną do XML ofertę.
-		// TODO: first we have to change the offers list from TaskValues
-		return null;
+	public String getOffer(String sessionID, int renegotiation, int countOffer, String contractorID) {
+		// FIXME: Is using of renegotiation and countOffer OK?
+		TaskValues taskValues = contracts.get(sessionID);
+		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
+		Map<String, List<OfferStatus>> offerStatusMap = offers.get(renegotiation);
+		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
+		OfferStatus offerStatus = offerStatusList.get(countOffer);
+		Offer offer = offerStatus.getOffer();
+		XStream xStream = new XStream();
+		xStream.alias("Offer", Offer.class);
+		String xml = xStream.toXML(offer);
+		return xml;
 	}
 
 	public void prepareTask(String sessionId, String mainSessionId, List<String> goodsTypes) {
