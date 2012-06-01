@@ -62,4 +62,19 @@ public class TaskValues implements Serializable {
 		this.goodsReceived.add(goodReceived);
 	}
 	
+	public Map<String, List<OfferStatus>> getRenegotiations(int renegotiation) {
+		return offers.get(renegotiation);
+	}
+	
+	public List<OfferStatus> getContractorOffers(int renegotiation, String contractorID) {
+		Map<String, List<OfferStatus>> map = offers.get(renegotiation);
+		return map.get(contractorID);
+	}
+	
+	public OfferStatus getLastOfferStatus(String contractorID) {
+		Map<String, List<OfferStatus>> offerStatusMap = ((LinkedList<Map<String, List<OfferStatus>>>) offers).getLast();
+		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
+		return offerStatusList.getLast();
+	}
+	
 }

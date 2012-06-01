@@ -55,20 +55,14 @@ public class ClientAgent extends Agent {
 	public void receiveOffer(Offer offer) {
 		TaskValues taskValues = contracts.get(offer.getSessionId());
 		String contractorID = offer.getContractorId();
-		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
-		Map<String, List<OfferStatus>> offerStatusMap = offers.getLast();
-		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
-		OfferStatus offerStatus = offerStatusList.getLast();
+		OfferStatus offerStatus = taskValues.getLastOfferStatus(contractorID);
 		offerStatus.setOffer(offer);
 		offerStatus.setStatus(OfferStatusEnum.OFFER_RECEIVED);
 	}
 
-	public void receiveRefusal(String sessionId, String contractorId, int offerCount) {
+	public void receiveRefusal(String sessionId, String contractorID, int offerCount) {
 		TaskValues taskValues = contracts.get(sessionId);
-		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
-		Map<String, List<OfferStatus>> offerStatusMap = offers.getLast();
-		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorId);
-		OfferStatus offerStatus = offerStatusList.getLast();
+		OfferStatus offerStatus = taskValues.getLastOfferStatus(contractorID);
 		offerStatus.setStatus(OfferStatusEnum.CANCEL);
 		if(checkRefusalStatuses(taskValues)) {
 			// XXX: przerwanie kontraktu 
@@ -89,22 +83,16 @@ public class ClientAgent extends Agent {
 		return true;
 	}
 
-	public void reciveContractSign(String sessionId, String contractorId) {
-		TaskValues taskValues = contracts.get(sessionId);
-		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
-		Map<String, List<OfferStatus>> offerStatusMap = offers.getLast();
-		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorId);
-		OfferStatus offerStatus = offerStatusList.getLast();
+	public void reciveContractSign(String sessionID, String contractorID) {
+		TaskValues taskValues = contracts.get(sessionID);
+		OfferStatus offerStatus = taskValues.getLastOfferStatus(contractorID);
 		offerStatus.setStatus(OfferStatusEnum.SIGNED);
 	}
 
 	public void reciveRenegotiation(Offer offer) {
 		TaskValues taskValues = contracts.get(offer.getSessionId());
 		String contractorID = offer.getContractorId();
-		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
-		Map<String, List<OfferStatus>> offerStatusMap = offers.getLast();
-		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
-		OfferStatus offerStatus = offerStatusList.getLast();
+		OfferStatus offerStatus = taskValues.getLastOfferStatus(contractorID);
 		offerStatus.setOffer(offer);
 		offerStatus.setStatus(OfferStatusEnum.OFFER_RECEIVED);
 	}
@@ -196,9 +184,7 @@ public class ClientAgent extends Agent {
 
 	public int getOfferCount(String sessionID, int renegotiation, String contractorID) {
 		TaskValues taskValues = contracts.get(sessionID);
-		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
-		Map<String, List<OfferStatus>> offerStatusMap = offers.get(renegotiation);
-		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
+		List<OfferStatus> offerStatusList = taskValues.getContractorOffers(renegotiation, contractorID);
 		return offerStatusList.size();
 	}
 
@@ -210,9 +196,7 @@ public class ClientAgent extends Agent {
 	public String getOffer(String sessionID, int renegotiation, int countOffer, String contractorID) {
 		// FIXME: Is using of renegotiation and countOffer OK?
 		TaskValues taskValues = contracts.get(sessionID);
-		LinkedList<Map<String, List<OfferStatus>>> offers = (LinkedList<Map<String, List<OfferStatus>>>) taskValues.getOffers();
-		Map<String, List<OfferStatus>> offerStatusMap = offers.get(renegotiation);
-		LinkedList<OfferStatus> offerStatusList = (LinkedList<OfferStatus>) offerStatusMap.get(contractorID);
+		List<OfferStatus> offerStatusList = taskValues.getContractorOffers(renegotiation, contractorID);
 		OfferStatus offerStatus = offerStatusList.get(countOffer);
 		Offer offer = offerStatus.getOffer();
 		XStream xStream = new XStream();
