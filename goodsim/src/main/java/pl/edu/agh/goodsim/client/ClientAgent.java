@@ -15,6 +15,7 @@ import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
+import pl.edu.agh.goodsim.jmx.iface.ClientAgentMXBean;
 import pl.edu.agh.goodsim.serviceregistry.Reputation;
 import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 import pl.edu.agh.goodsim.type.ContractStatusEnum;
@@ -25,7 +26,7 @@ import com.thoughtworks.xstream.XStream;
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
-public class ClientAgent extends Agent {
+public class ClientAgent extends Agent implements ClientAgentMXBean {
 
 	private static final long serialVersionUID = 1L;
 	private Map<String, TaskValues> contracts;
@@ -64,8 +65,8 @@ public class ClientAgent extends Agent {
 		TaskValues taskValues = contracts.get(sessionId);
 		OfferStatus offerStatus = taskValues.getLastOfferStatus(contractorID);
 		offerStatus.setStatus(OfferStatusEnum.CANCEL);
-		if(checkRefusalStatuses(taskValues)) {
-			// XXX: przerwanie kontraktu 
+		if (checkRefusalStatuses(taskValues)) {
+			// XXX: przerwanie kontraktu
 			taskValues.getContract().setContractStatus(ContractStatusEnum.CLOSED);
 		}
 	}
@@ -98,9 +99,7 @@ public class ClientAgent extends Agent {
 	}
 
 	/*
-	 * ===================================================== 
 	 * MAS/JMX FUNCTIONS (What we can delegate to the agent)
-	 * =====================================================
 	 */
 
 	public void receiveGood(Good good, String sessionID, int container) {
@@ -138,9 +137,7 @@ public class ClientAgent extends Agent {
 	}
 
 	/*
-	 * ===================================================== 
 	 * MAS/JMX FUNCTIONS (What we can delegate to the agent)
-	 * =====================================================
 	 */
 
 	public Set<String> getContractList(ContractStatusEnum status) {
@@ -212,7 +209,8 @@ public class ClientAgent extends Agent {
 		TaskValues taskValues = new TaskValues(contract);
 		Map<String, List<Reputation>> servicesMap = _serviceRegistry.getServices(goodsTypes);
 		taskValues.initNegotiationHistory();
-		//TODO: 4. Utworzenie dla każdej znalezionej usługi obiektu klasy OfferStatus i umieszczeniu ich w mapie (w taskValues).
+		// TODO: 4. Utworzenie dla każdej znalezionej usługi obiektu klasy
+		// OfferStatus i umieszczeniu ich w mapie (w taskValues).
 		contracts.put(sessionId, taskValues);
 	}
 
@@ -228,10 +226,8 @@ public class ClientAgent extends Agent {
 		// TODO:
 	}
 
-	/*
-	 * ========================================== 
-	 * MAS/JMX EVENTS (What can agent do himself) 
-	 * ==========================================
+	/* 
+	 * MAS/JMX EVENTS (What can agent do himself)
 	 */
 
 	private void getServices(List<String> goodsTypes) {
@@ -260,5 +256,30 @@ public class ClientAgent extends Agent {
 
 	private void sendGood(String sessionid, String contractorid, Good good) {
 		// TODO:
+	}
+
+	/*
+	 * JMX Test Methods
+	 * (non-Javadoc)
+	 * @see pl.edu.agh.goodsim.jmx.iface.ClientMBean#sayHello()
+	 */
+
+	private int cacheSize = DEFAULT_CACHE_SIZE;
+	private static final int DEFAULT_CACHE_SIZE = 200;
+
+	@Override
+	public void sayHello() {
+		System.out.println("Hello World!");
+	}
+	
+	@Override
+	public int getCacheSize() {
+		return this.cacheSize;
+	}
+
+	@Override
+	public void setCacheSize(int size) {
+		this.cacheSize = size;
+		System.out.println("Cache size now " + this.cacheSize);
 	}
 }
