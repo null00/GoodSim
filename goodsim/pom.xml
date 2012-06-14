@@ -12,8 +12,17 @@
             <id>getalp.repository</id>
             <url>http://getalp.imag.fr/m2</url>
         </repository>
+        <repository>
+            <id>local-repo</id>
+            <url>file://${basedir}/local-repo</url>
+        </repository>
     </repositories>
     <dependencies>
+        <dependency>
+            <groupId>jade.jademx</groupId>
+            <artifactId>jademx</artifactId>
+            <version>0.4.1</version>
+        </dependency>
         <dependency>
             <groupId>com.tilab.jade</groupId>
             <artifactId>jade</artifactId>
@@ -46,11 +55,6 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>fully.qualified.MainClass</mainClass>
-                        </manifest>
-                    </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>

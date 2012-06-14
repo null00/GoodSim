@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import jade.jademx.agent.JademxAgent;
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
@@ -26,7 +27,7 @@ import com.thoughtworks.xstream.XStream;
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
-public class ClientAgent extends Agent implements ClientAgentMXBean {
+public class ClientAgent extends JademxAgent {
 
 	private static final long serialVersionUID = 1L;
 	private Map<String, TaskValues> contracts;
@@ -39,14 +40,12 @@ public class ClientAgent extends Agent implements ClientAgentMXBean {
 
 	@Override
 	protected void setup() {
-		// XXX: Jade Agent initialization
 		System.out.println("Hello! I am the ClientAgent: " + getAID().getName());
 	}
 
 	@Override
 	protected void takeDown() {
-		// XXX: Clean up the agent
-		System.out.println("I'm dead!");
+		System.out.println("Client is dead!");
 	}
 
 	/*
@@ -267,17 +266,17 @@ public class ClientAgent extends Agent implements ClientAgentMXBean {
 	private int cacheSize = DEFAULT_CACHE_SIZE;
 	private static final int DEFAULT_CACHE_SIZE = 200;
 
-	@Override
+//	@Override
 	public void sayHello() {
 		System.out.println("Hello World!");
 	}
 	
-	@Override
+//	@Override
 	public int getCacheSize() {
 		return this.cacheSize;
 	}
 
-	@Override
+//	@Override
 	public void setCacheSize(int size) {
 		this.cacheSize = size;
 		System.out.println("Cache size now " + this.cacheSize);

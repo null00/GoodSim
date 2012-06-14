@@ -9,6 +9,16 @@ import java.util.List;
 public class ProducerAgent extends ClientAgent {
     private List<Good> storedGoods;
 
+   @Override
+   protected void setup() {
+      System.out.println("Hello! I am the ProducerAgent: " + getAID().getName());
+   }
+
+   @Override
+   protected void takeDown() {
+      System.out.println("Producer is dead!");
+   }
+
     public void receiveIntention(ClientOffer offer) {
         // TODO
     }
