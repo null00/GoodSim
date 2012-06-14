@@ -2,7 +2,7 @@ package pl.edu.agh.goodsim.jmx.iface;
 
 public interface ClientAgentMXBean {
 
-	public void sayHello();
+	public String sayHello();
 
 	public String getName();
 

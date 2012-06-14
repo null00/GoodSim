@@ -19,72 +19,25 @@ import jade.jademx.server.JadeMXServerFactory;
  */
 public class JademxAgentTesting {
 
-   ///** test(suite) name */
-   //private static String name = 
-   //    JadeMXSuiteTest.nameWithClass( 
-   //            JademxAgentTest.class, 
-   //    		"testing JadeAgent: JADE agent MBean class");
-
-
-   /**
-    * jadeMXServer we're using
-    */
    private JadeMXServer jadeMXServer = null;
-
-   /**
-    * runtime for test use
-    */
    private JadeRuntime jadeRuntime = null;
-
-   /**
-    * mbean for platform under test
-    */
    JadePlatform platformMBean = null;
+   private static final String JADEMX_CONFIGURATION_XML =
+      "jademx-configuration.xml";
 
-   /**
-    * resource name for configuration of one nop agent
-    */
-   private static final String ONE_BASE_CONFIG_RESOURCE =
-      "one-base-agent.xml";
-
-   /**
-    * name for dummy agent
-    */
-   private static final String AGENT_LOCAL_NAME_DUMMY = "dummy";
-
-
-   // tests
-
-
-   /* (non-Javadoc)
-   * @see junit.framework.TestCase#setUp()
-   */
    protected void setUp() throws Exception {
-      // first get JadeMXServer
       jadeMXServer = JadeMXServerFactory.jadeMXServerBySysProp();
-      // now get a factory to use
-      JadeFactory jadeFactory =
-         new JadeFactory(jadeMXServer);
+      JadeFactory jadeFactory = new JadeFactory(jadeMXServer);
       jadeRuntime = (JadeRuntime) jadeFactory.runtimeInstance();
-      //JadeMXSuiteTest.listMBeans(mBeanServer, "at end of setUp()");
-      JadePlatform platformMBeans[] =
-         jadeRuntime.platformsFromConfigResource(
-            ONE_BASE_CONFIG_RESOURCE);
+      JadePlatform platformMBeans[] = jadeRuntime.platformsFromConfigResource(JADEMX_CONFIGURATION_XML);
       platformMBean = platformMBeans[0];
    }
 
 
-   /* (non-Javadoc)
-   * @see junit.framework.TestCase#tearDown()
-   */
    protected void tearDown() throws Exception {
-      //JadeMXSuiteTest.listMBeans(mBeanServer,
-      //"at start of JadePlatformTest.tearDown()");
       if (null != jadeRuntime) {
          jadeRuntime.shutdown();
       }
-      //JadeMXSuiteTest.listMBeans(mBeanServer,
-      //"at end of JadePlatformTest.tearDown()");
    }
 
    public static void main(String[] args) throws Exception {
