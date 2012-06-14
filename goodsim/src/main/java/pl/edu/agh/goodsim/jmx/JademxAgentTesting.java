@@ -45,7 +45,7 @@ public class JademxAgentTesting {
     * resource name for configuration of one nop agent
     */
    private static final String ONE_BASE_CONFIG_RESOURCE =
-      "pl/edu/agh/goodsim/one-base-agent.xml";
+      "one-base-agent.xml";
 
    /**
     * name for dummy agent
