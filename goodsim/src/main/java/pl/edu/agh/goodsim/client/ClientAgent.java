@@ -33,8 +33,7 @@ public class ClientAgent extends Agent implements ClientAgentMXBean {
 	private ServiceRegistry _serviceRegistry;
 
 	public ClientAgent() {
-		// TODO: Doesn't ServiceRegistry supposed to be limited to one instance?
-		_serviceRegistry = new ServiceRegistry();
+		_serviceRegistry = ServiceRegistry.getInstance();
 	}
 
 	@Override
