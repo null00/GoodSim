@@ -34,8 +34,7 @@ public class ClientAgent extends JademxAgent {
 	private ServiceRegistry _serviceRegistry;
 
 	public ClientAgent() {
-		// TODO: Doesn't ServiceRegistry supposed to be limited to one instance?
-		_serviceRegistry = new ServiceRegistry();
+		_serviceRegistry = ServiceRegistry.getInstance();
 	}
 
 	@Override

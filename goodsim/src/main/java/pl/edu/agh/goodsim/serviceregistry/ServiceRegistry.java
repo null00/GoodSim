@@ -21,11 +21,19 @@ public class ServiceRegistry {
 	private Map<String, Reputation> clientReputations;
 	private Map<String, Reputation> producentReputations;
 
-	public ServiceRegistry() {
+	private ServiceRegistry() {
 		super();
 		registeredServices = new HashMap<String, List<String>>();
 		clientReputations = new HashMap<String, Reputation>();
 		producentReputations = new HashMap<String, Reputation>();
+	}
+
+	private static class ServiceRegistryHolder {
+		public static final ServiceRegistry instance = new ServiceRegistry();
+	}
+
+	public static ServiceRegistry getInstance() {
+		return ServiceRegistryHolder.instance;
 	}
 
 	public void registerService(String serviceTypeName, String agentName) {
