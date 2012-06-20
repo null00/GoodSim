@@ -48,7 +48,7 @@ public class ServiceRegistry extends JademxAgent {
 					if(functionName.equals("registerService")){
 						String serviceTypeName = me.getArgument(0);
 						String agentName = me.getArgument(1);
-						System.out.format("%s: register(%s, %s)%n", myAgent.getLocalName(), serviceTypeName, agentName);
+						//System.out.format("%s: register(%s, %s)%n", myAgent.getLocalName(), serviceTypeName, agentName);
 
 						ServiceRegistry sr = (ServiceRegistry) myAgent;
 						sr.registerService(serviceTypeName, agentName);

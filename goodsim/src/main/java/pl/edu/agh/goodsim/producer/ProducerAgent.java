@@ -46,8 +46,8 @@ public class ProducerAgent extends ClientAgent {
    public void registerService() {
 	   MethodEnvelope me = new MethodEnvelope();
 	   me.setFunctionName("registerService");
-	   me.addArgument("ServiceTypeName");
 	   me.addArgument(getAID().getName());
+	   me.addArgument("ServiceTypeName");
 	   String msgContent = me.toXML();
 
 	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
