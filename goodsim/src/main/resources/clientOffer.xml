@@ -1,15 +1,15 @@
 <pl.edu.agh.goodsim.document.ClientOffer>
-    <ClientId>client</ClientId>
-    <InputGoods>
+    <clientId>client</clientId>
+    <inputGoods>
         <pl.edu.agh.goodsim.entity.Good>
             <typeOfGoodName>drewno</typeOfGoodName>
             <attributeValues/>
         </pl.edu.agh.goodsim.entity.Good>
-    </InputGoods>
-    <OutputGoods>
+    </inputGoods>
+    <outputGoods>
         <pl.edu.agh.goodsim.entity.Good>
             <typeOfGoodName>deska</typeOfGoodName>
             <attributeValues/>
         </pl.edu.agh.goodsim.entity.Good>
-    </OutputGoods>
+    </outputGoods>
 </pl.edu.agh.goodsim.document.ClientOffer>
