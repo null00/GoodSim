@@ -32,8 +32,7 @@ public class ProducerAgent extends ClientAgent {
 
    @Override
    protected void setup() {
-      super.setup();
-      System.out.println("Hello! I am the ProducerAgent: " + getAID().getName());
+	   super.setup();
 
 	   serviceRegistryAID = getServiceRegistryAID();
 	   if(serviceRegistryAID != null) {

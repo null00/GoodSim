@@ -58,7 +58,7 @@ public class ClientAgent extends JademxAgent {
    @Override
    protected void setup() {
       super.setup();
-      System.out.println("Hello! I am the ClientAgent: " + getAID().getName());
+      System.out.println("Hello! I am the " + getClass().getSimpleName() + " : " + getAID().getName() );
    }
 
    @Override
