@@ -27,19 +27,11 @@ public class ServiceRegistry extends JademxAgent {
 	private Map<String, Reputation> clientReputations;
 	private Map<String, Reputation> producentReputations;
 
-	private ServiceRegistry() {
+	public ServiceRegistry() {
 		super();
 		registeredServices = new HashMap<String, List<String>>();
 		clientReputations = new HashMap<String, Reputation>();
 		producentReputations = new HashMap<String, Reputation>();
-	}
-
-	private static class ServiceRegistryHolder {
-		public static final ServiceRegistry instance = new ServiceRegistry();
-	}
-
-	public static ServiceRegistry getInstance() {
-		return ServiceRegistryHolder.instance;
 	}
 
 	@Override
@@ -57,9 +49,9 @@ public class ServiceRegistry extends JademxAgent {
 						String serviceTypeName = me.getArgument(0);
 						String agentName = me.getArgument(1);
 						System.out.format("%s: register(%s, %s)%n", myAgent.getLocalName(), serviceTypeName, agentName);
-						//ServiceRegistry sr = (ServiceRegistry) myAgent;
-						//sr.registerService(serviceTypeName, agentName);
-						//instance.registerService(serviceTypeName, agentName);
+
+						ServiceRegistry sr = (ServiceRegistry) myAgent;
+						sr.registerService(serviceTypeName, agentName);
 					} else {
 						System.out.println( myAgent.getLocalName() + ": Unkown function call");
 					}

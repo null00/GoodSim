@@ -8,6 +8,10 @@
             </options>
             <agent-specifiers>
                 <agent-specifier>
+                    <name>ServiceRegistry</name>
+                    <class>pl.edu.agh.goodsim.serviceregistry.ServiceRegistry</class>
+                </agent-specifier>
+                <agent-specifier>
                     <name>client1</name>
                     <class>pl.edu.agh.goodsim.client.ClientAgent</class>
                 </agent-specifier>

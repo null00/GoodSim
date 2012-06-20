@@ -17,7 +17,7 @@ public class ProducerAgent extends ClientAgent {
 
    public ProducerAgent(){
       super();
-      _serviceRegistry = ServiceRegistry.getInstance();
+//      _serviceRegistry = ServiceRegistry.getInstance();
       mBeanInfoThisLevel = null;
       mBeanInfoSuper = super.getMBeanInfo();
       mBeanInfoMerged = MBeanUtil.mergeMBeanInfo(

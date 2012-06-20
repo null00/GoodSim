@@ -44,7 +44,7 @@ public class ClientAgent extends JademxAgent {
 
    public ClientAgent() {
       super();
-      _serviceRegistry = ServiceRegistry.getInstance();
+//      _serviceRegistry = ServiceRegistry.getInstance();
       mBeanInfoThisLevel = constructMBeanInfo();
       mBeanInfoMerged = MBeanUtil.mergeMBeanInfo(
          getClass().getName(), DESCRIPTION,
