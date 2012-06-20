@@ -118,10 +118,10 @@ public class ServiceRegistry extends JademxAgent {
 		return servicesMap;
 	}
 
-	public List<String> getServices(String goodType) {
-		List<String> result = new LinkedList<>();
+	public List<String> getServices(String goodTypeName) {
+		List<String> servicesList = registeredServices.get(goodTypeName);
 
-		return result;
+		return (servicesList != null) ? servicesList : new LinkedList<String>();
 	}
 
 	public Reputation getClientComment(String clientAgentName) {
