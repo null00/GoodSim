@@ -1,17 +1,21 @@
 package pl.edu.agh.goodsim.producer;
 
 import jade.core.AID;
+import jade.domain.AMSService;
+import jade.domain.FIPAAgentManagement.AMSAgentDescription;
+import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.jademx.util.MBeanUtil;
 import jade.lang.acl.ACLMessage;
+
+import java.util.List;
+
 import pl.edu.agh.goodsim.client.ClientAgent;
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.helper.MethodEnvelope;
-import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
-
-import java.util.List;
 
 public class ProducerAgent extends ClientAgent {
+   private static final String SERVICE_REGISTRY_NAME = "ServiceRegistry";
    private static final String DESCRIPTION = "Producer Agent";
    private List<Good> storedGoods;
 
@@ -52,9 +56,35 @@ public class ProducerAgent extends ClientAgent {
 
 	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
 	   msg.setContent( msgContent );
-	   // TODO how to obtain serviceRegistry AID? from AMS? how?
-	   msg.addReceiver(new AID("ServiceRegistry@invincible:1098/JADE", AID.ISLOCALNAME) );
-	   send(msg);
+
+	   // get ServiceRegistry AID and send ACLMessage
+	   AID serviceRegistryAID = getServiceRegistryAID();
+	   if(serviceRegistryAID != null) {
+		   msg.addReceiver(serviceRegistryAID);
+		   send(msg);
+	   }else{
+		   System.out.println("Cannot obtain ServiceRegistry AID");
+	   }
+   }
+
+   public AID getServiceRegistryAID() {
+	   AMSAgentDescription [] agents = null;
+
+	   try {
+		   SearchConstraints c = new SearchConstraints();
+		   c.setMaxResults ( new Long(-1) );
+		   agents = AMSService.search( this, new AMSAgentDescription (), c );
+		   for(AMSAgentDescription agentDescription : agents) {
+			   AID agentAID = agentDescription.getName();
+			   if( agentAID.getName().contains(SERVICE_REGISTRY_NAME) )
+				   return agentAID;
+		   }
+	   }
+	   catch (Exception e) { 
+		   System.out.println(e.toString());
+	   }
+
+	   return null;
    }
 
     public void receiveIntention(ClientOffer offer) {
