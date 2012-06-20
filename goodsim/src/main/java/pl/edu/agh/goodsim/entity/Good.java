@@ -33,4 +33,11 @@ public class Good {
         return Maps.difference(this.attributeValues, good.attributeValues).areEqual();
     }
 
+    public void setTypeOfGoodName(String typeOfGoodName) {
+        this.typeOfGoodName = typeOfGoodName;
+    }
+
+    public void setAttributeValues(Map<Double, Object> attributeValues) {
+        this.attributeValues = attributeValues;
+    }
 }

@@ -1,45 +1,64 @@
 package pl.edu.agh.goodsim.document;
 
+import pl.edu.agh.goodsim.entity.Good;
+
+import java.beans.ConstructorProperties;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.edu.agh.goodsim.entity.Good;
-
 public class ClientOffer {
-	private String ClientId;
-	private List<Good> InputGoods;
-	private List<Good> OutputGoods;
+    private String clientId;
+    private List<Good> inputGoods;
+    private List<Good> outputGoods;
 
-	public ClientOffer() {
-		super();
-	}
+    public ClientOffer() {
+        super();
+    }
 
-	public String getClientId() {
-		return ClientId;
-	}
+    @ConstructorProperties({"clientId", "inputGoods", "outputGoods"})
+    public ClientOffer(String clientId, List<Good> inputGoods, List<Good> outputGoods) {
+        this.clientId = clientId;
+        this.inputGoods = inputGoods;
+        this.outputGoods = outputGoods;
+    }
 
-	public List<String> getInputGoodsTypes() {
-		List<String> inputGoodTypes = new LinkedList<String>();
-		for (Good good : InputGoods) {
-			inputGoodTypes.add(good.getTypeOfGoodName());
-		}
-		return inputGoodTypes;
-	}
+    public String getClientId() {
+        return clientId;
+    }
 
-	public List<String> getOutputGoodsTypes() {
-		List<String> outputGoodTypes = new LinkedList<String>();
-		for (Good good : OutputGoods) {
-			outputGoodTypes.add(good.getTypeOfGoodName());
-		}
-		return outputGoodTypes;
-	}
+    public List<String> getInputGoodsTypes() {
+        List<String> inputGoodTypes = new LinkedList<String>();
+        for (Good good : inputGoods) {
+            inputGoodTypes.add(good.getTypeOfGoodName());
+        }
+        return inputGoodTypes;
+    }
 
-	public List<Good> getInputGoods() {
-		return InputGoods;
-	}
+    public List<String> getOutputGoodsTypes() {
+        List<String> outputGoodTypes = new LinkedList<String>();
+        for (Good good : outputGoods) {
+            outputGoodTypes.add(good.getTypeOfGoodName());
+        }
+        return outputGoodTypes;
+    }
 
-	public List<Good> getOutputGoods() {
-		return OutputGoods;
-	}
+    public List<Good> getInputGoods() {
+        return inputGoods;
+    }
 
+    public List<Good> getOutputGoods() {
+        return outputGoods;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setInputGoods(List<Good> inputGoods) {
+        this.inputGoods = inputGoods;
+    }
+
+    public void setOutputGoods(List<Good> outputGoods) {
+        this.outputGoods = outputGoods;
+    }
 }
