@@ -104,13 +104,16 @@ public class ServiceRegistry extends JademxAgent {
 
 	public Map<String, List<Reputation>> getServices(List<String> goodsTypes) {
 		Map<String, List<Reputation>> servicesMap = new HashMap<String, List<Reputation>>();
-
 		for (String goodTypeName : goodsTypes) {
 			List<Reputation> reputationList = new LinkedList<Reputation>();
-			for (String agentName : registeredServices.get(goodTypeName)) {
-				reputationList.add(producentReputations.get(agentName));
-			}
+			
+			List<String> servicesList = registeredServices.get(goodTypeName);
+			if (servicesList != null){ 
+				for (String agentName : servicesList) {
+					reputationList.add(producentReputations.get(agentName));
+				}
 			servicesMap.put(goodTypeName, reputationList);
+			}
 		}
 		return servicesMap;
 	}
