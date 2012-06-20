@@ -1,27 +1,17 @@
 package pl.edu.agh.goodsim.producer;
 
-import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.domain.AMSService;
-import jade.domain.FIPAAgentManagement.AMSAgentDescription;
-import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.jademx.util.MBeanUtil;
 import jade.lang.acl.ACLMessage;
 
 import java.util.List;
-import java.util.Map;
-
 import pl.edu.agh.goodsim.client.ClientAgent;
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.helper.MethodEnvelope;
-import pl.edu.agh.goodsim.serviceregistry.Reputation;
-import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 
 public class ProducerAgent extends ClientAgent {
-   private static final String SERVICE_REGISTRY_NAME = "ServiceRegistry";
    private static final String DESCRIPTION = "Producer Agent";
-   private AID serviceRegistryAID;
    private List<Good> storedGoods;
 
    public ProducerAgent(){
@@ -37,8 +27,7 @@ public class ProducerAgent extends ClientAgent {
    @Override
    protected void setup() {
 	   super.setup();
-
-	   serviceRegistryAID = getServiceRegistryAID();
+	   
 	   if(serviceRegistryAID != null) {
 		   registerService();		   
 	   } else {
@@ -107,27 +96,7 @@ public class ProducerAgent extends ClientAgent {
 	   send(msg);
    }
 
-   public AID getServiceRegistryAID() {
-	   AMSAgentDescription [] agents = null;
-
-	   try {
-		   SearchConstraints c = new SearchConstraints();
-		   c.setMaxResults ( new Long(-1) );
-		   agents = AMSService.search( this, new AMSAgentDescription (), c );
-		   for(AMSAgentDescription agentDescription : agents) {
-			   AID agentAID = agentDescription.getName();
-			   if( agentAID.getName().contains(SERVICE_REGISTRY_NAME) )
-				   return agentAID;
-		   }
-	   }
-	   catch (Exception e) { 
-		   System.out.println(e.toString());
-	   }
-
-	   return null;
-   }
-
-    public void receiveIntention(ClientOffer offer) {
+   public void receiveIntention(ClientOffer offer) {
         // TODO
     	System.out.println(getAID().getName() + ": I receive ClientOffer" + offer.toString());
     }

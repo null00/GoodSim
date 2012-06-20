@@ -2,6 +2,9 @@ package pl.edu.agh.goodsim.client;
 
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.domain.AMSService;
+import jade.domain.FIPAAgentManagement.AMSAgentDescription;
+import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.jademx.agent.JademxAgent;
 import jade.jademx.util.MBeanUtil;
 import jade.lang.acl.ACLMessage;
@@ -43,10 +46,12 @@ public class ClientAgent extends JademxAgent {
 
    private static final long serialVersionUID = 1L;
    private static final String DESCRIPTION = "Client Agent";
+   private static final String SERVICE_REGISTRY_NAME = "ServiceRegistry";
    protected static final String SAY_HELLO_OPER_NAME = "sayHello";
    protected static final String SAY_HELLO_OPER_DESC = "says hello";
    private Map<String, TaskValues> contracts;
    protected ServiceRegistry _serviceRegistry;
+   protected AID serviceRegistryAID;
 
    /**
     * MBeanInfo for this class and superclass(es)
@@ -77,6 +82,8 @@ public class ClientAgent extends JademxAgent {
    @Override
    protected void setup() {
       super.setup();
+      serviceRegistryAID = getServiceRegistryAID();
+      
       System.out.println("Hello! I am the " + getClass().getSimpleName() + " : " + getAID().getName() );
    }
 
@@ -335,7 +342,7 @@ public class ClientAgent extends JademxAgent {
 
 	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
 	   msg.setContent( msgContent );
-	   msg.addReceiver(new AID("ServiceRegistry@invincible:1098/JADE", AID.ISLOCALNAME));
+	   msg.addReceiver(serviceRegistryAID);
 	   send(msg);
 
 	   addBehaviour(new CyclicBehaviour(this) {
@@ -388,6 +395,7 @@ public class ClientAgent extends JademxAgent {
 
    private int cacheSize = DEFAULT_CACHE_SIZE;
    private static final int DEFAULT_CACHE_SIZE = 200;
+
 
    public String sayHello() {
       return "I, " + getAID().getName() + " welcome you Sir!";
@@ -498,5 +506,25 @@ public class ClientAgent extends JademxAgent {
          super.invoke(actionName, params, signature);
       }
       return o;
+   }
+
+public AID getServiceRegistryAID() {
+	   AMSAgentDescription [] agents = null;
+
+	   try {
+		   SearchConstraints c = new SearchConstraints();
+		   c.setMaxResults ( new Long(-1) );
+		   agents = AMSService.search( this, new AMSAgentDescription (), c );
+		   for(AMSAgentDescription agentDescription : agents) {
+			   AID agentAID = agentDescription.getName();
+			   if( agentAID.getName().contains(SERVICE_REGISTRY_NAME) )
+				   return agentAID;
+		   }
+	   }
+	   catch (Exception e) { 
+		   System.out.println(e.toString());
+	   }
+
+	   return null;
    }
 }
