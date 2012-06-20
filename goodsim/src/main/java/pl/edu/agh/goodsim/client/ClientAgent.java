@@ -1,21 +1,40 @@
 package pl.edu.agh.goodsim.client;
 
-import com.thoughtworks.xstream.XStream;
+import jade.core.AID;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.jademx.agent.JademxAgent;
 import jade.jademx.util.MBeanUtil;
+import jade.lang.acl.ACLMessage;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.management.Attribute;
+import javax.management.AttributeNotFoundException;
+import javax.management.InvalidAttributeValueException;
+import javax.management.MBeanConstructorInfo;
+import javax.management.MBeanException;
+import javax.management.MBeanInfo;
+import javax.management.MBeanOperationInfo;
+import javax.management.ReflectionException;
+
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.document.Contract;
 import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
+import pl.edu.agh.goodsim.helper.MethodEnvelope;
 import pl.edu.agh.goodsim.serviceregistry.Reputation;
 import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 import pl.edu.agh.goodsim.type.ContractStatusEnum;
 import pl.edu.agh.goodsim.type.OfferStatusEnum;
 
-import javax.management.*;
-import java.util.*;
-import java.util.Map.Entry;
+import com.thoughtworks.xstream.XStream;
 
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
@@ -305,7 +324,33 @@ public class ClientAgent extends JademxAgent {
      */
 
    private void getServices(List<String> goodsTypes) {
-      // TODO:
+	   // TODO use it from JMX uncomment for easy testing
+//	   goodsTypes = new LinkedList<String>();
+//	   goodsTypes.add("ServiceTypeName");
+
+	   MethodEnvelope me = new MethodEnvelope();
+	   me.setFunctionName("getServices");
+	   me.addArgument(goodsTypes);
+	   String msgContent = me.toXML();
+
+	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
+	   msg.setContent( msgContent );
+	   msg.addReceiver(new AID("ServiceRegistry@invincible:1098/JADE", AID.ISLOCALNAME));
+	   send(msg);
+
+	   addBehaviour(new CyclicBehaviour(this) {
+		   public void action() {
+			   ACLMessage reply = receive();
+			   if ( reply != null){
+				   MethodEnvelope replyEnvelope = MethodEnvelope.fromXML( reply.getContent() );
+				   Map<String, List<Reputation>> result = replyEnvelope.getArgument(0);
+
+				   // test if work
+				   System.out.println( result.size() );
+			   }
+			   block();
+		   }
+	   });
    }
 
    private void sendIntention(ClientOffer intention) {

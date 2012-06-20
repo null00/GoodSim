@@ -55,6 +55,16 @@ public class ServiceRegistry extends JademxAgent {
 						String serviceTypeName = me.getArgument(0);
 						String agentName = me.getArgument(1);
 						sr.unregisterService(serviceTypeName, agentName);
+					} else if(functionName.equals("getServices")){
+						List<String> goodsTypes = me.getArgument(0);
+						Map<String, List<Reputation>> result = sr.getServices(goodsTypes);
+						
+						MethodEnvelope replyEnvelope = new MethodEnvelope();
+						replyEnvelope.setFunctionName("reply");
+						replyEnvelope.addArgument(result);
+						ACLMessage reply = msg.createReply();
+						reply.setContent( replyEnvelope.toXML() );
+						send(reply);
 					} else {
 						System.out.println( myAgent.getLocalName() + ": Unkown function call");
 					}
