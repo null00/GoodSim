@@ -354,7 +354,16 @@ public class ClientAgent extends JademxAgent {
    }
 
    private void sendIntention(ClientOffer intention) {
-      // TODO:
+	   MethodEnvelope me = new MethodEnvelope();
+	   me.setFunctionName("intention");
+	   me.addArgument(intention);
+	   String msgContent = me.toXML();
+
+	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
+	   msg.setContent( msgContent );
+	   //TODO add receivers
+	   //msg.addReceiver();
+	   //send(msg);
    }
 
    private void sendCounterOffer(ClientOffer clientOffer) {

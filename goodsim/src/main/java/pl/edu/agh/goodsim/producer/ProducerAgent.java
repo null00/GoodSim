@@ -1,6 +1,7 @@
 package pl.edu.agh.goodsim.producer;
 
 import jade.core.AID;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.AMSService;
 import jade.domain.FIPAAgentManagement.AMSAgentDescription;
 import jade.domain.FIPAAgentManagement.SearchConstraints;
@@ -8,11 +9,14 @@ import jade.jademx.util.MBeanUtil;
 import jade.lang.acl.ACLMessage;
 
 import java.util.List;
+import java.util.Map;
 
 import pl.edu.agh.goodsim.client.ClientAgent;
 import pl.edu.agh.goodsim.document.ClientOffer;
 import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.helper.MethodEnvelope;
+import pl.edu.agh.goodsim.serviceregistry.Reputation;
+import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 
 public class ProducerAgent extends ClientAgent {
    private static final String SERVICE_REGISTRY_NAME = "ServiceRegistry";
@@ -40,6 +44,28 @@ public class ProducerAgent extends ClientAgent {
 	   } else {
 		   System.out.println("Cannot obtain ServiceRegistry AID");
 	   }
+	   
+		addBehaviour(new CyclicBehaviour(this) {
+			public void action() {
+				ACLMessage msg = receive();
+				if (msg != null && msg.getPerformative() == ACLMessage.REQUEST) {
+					ProducerAgent pa = (ProducerAgent) myAgent;
+					MethodEnvelope me = MethodEnvelope.fromXML(msg.getContent());
+					String functionName = me.getFunctionName();
+					
+					if(functionName.equals("intentionn")){
+						ClientOffer intention = me.getArgument(0);
+						pa.receiveIntention(intention);
+					} else {
+						System.out.println( myAgent.getLocalName() + ": Unkown function call");
+					}
+				} else if (msg != null) {
+					System.out.format( "%s: receive msg %n%s%n", myAgent.getLocalName(), msg.getContent() );
+				}
+				block();
+			}
+		});
+	   
    }
 
    @Override
@@ -103,6 +129,7 @@ public class ProducerAgent extends ClientAgent {
 
     public void receiveIntention(ClientOffer offer) {
         // TODO
+    	System.out.println(getAID().getName() + ": I receive ClientOffer" + offer.toString());
     }
 
     public void receiveCounteroffer(ClientOffer counterOffer) {
