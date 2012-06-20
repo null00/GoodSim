@@ -7,9 +7,9 @@ public class Service {
 
 	private ServiceType type;
 
-	private Map<Double, Object> requiredFeaturesByNames;
+	private Map<String, Double> requiredFeaturesByNames;
 
-	public Map<Double, Object> getRequiredFeaturesByNames() {
+	public Map<String, Double> getRequiredFeaturesByNames() {
 		return requiredFeaturesByNames;
 	}
 
