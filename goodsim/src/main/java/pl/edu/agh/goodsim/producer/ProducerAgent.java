@@ -42,7 +42,7 @@ public class ProducerAgent extends ClientAgent {
 					MethodEnvelope me = MethodEnvelope.fromXML(msg.getContent());
 					String functionName = me.getFunctionName();
 					
-					if(functionName.equals("intentionn")){
+					if(functionName.equals("intention")){
 						ClientOffer intention = me.getArgument(0);
 						pa.receiveIntention(intention);
 					} else {
