@@ -74,10 +74,10 @@ public class ServiceRegistry extends JademxAgent {
 		if (agentsNames == null) {
 			agentsNames = new LinkedList<String>();
 			registeredServices.put(serviceTypeName, agentsNames);
-			System.out.format("ServiceRegistry: %s registered as %s%n", agentName, serviceTypeName);
 		}
 		if (!agentsNames.contains(agentName)) {
 			agentsNames.add(agentName);
+			System.out.format("ServiceRegistry: %s registered as %s%n", agentName, serviceTypeName);
 		}
 	}
 
