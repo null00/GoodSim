@@ -58,7 +58,7 @@ public class ClientAgent extends JademxAgent {
     private static final String PREPARE_INTENTION_OPER_TYPE = Void.class.getName();
     private static final String GET_SERVICES_OPER_NAME = "getServices";
     private static final String GET_SERVICES_OPER_DESC = "gets services from ServiceRegistry";
-    private static final String GET_SERVICES_OPER_TYPE = Map.class.getName();
+    private static final String GET_SERVICES_OPER_TYPE = List.class.getName();
     private static final String GOODS_TYPE_NAME = "goodsTypes";
     private static final String GOODS_TYPE_TYPE = String.class.getName();
     private static final String GOODS_TYPE_DESC = "goods Types";
@@ -331,18 +331,24 @@ public class ClientAgent extends JademxAgent {
     * MAS/JMX EVENTS (What can agent do himself)
     */
 
-    private Map<String, List<Reputation>> getServices(List<String> goodsTypes) {
-        Map<String, List<Reputation>> result = new HashMap<String, List<Reputation>>();
+    private List<String> getServices(String goodType) {
+        // TODO use it from JMX uncomment for easy testing
+//	   goodsTypes = new LinkedList<String>();
+//	   goodsTypes.add("ServiceTypeName");
+        List<String> result = new LinkedList<String>();
 
         MethodEnvelope me = new MethodEnvelope();
         me.setFunctionName("getServices");
-        me.addArgument(goodsTypes);
+        me.addArgument(goodType);
         String msgContent = me.toXML();
 
+        //send message
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         msg.setContent(msgContent);
         msg.addReceiver(serviceRegistryAID);
         send(msg);
+
+        //receive result
         ACLMessage reply = blockingReceive();
         if (reply != null) {
             MethodEnvelope replyEnvelope = MethodEnvelope.fromXML(reply.getContent());
@@ -502,7 +508,8 @@ public class ClientAgent extends JademxAgent {
                 prepareIntention((String) params[0]);
                 break;
             case GET_SERVICES_OPER_NAME:
-                o = getServices((List<String>) params[0]);
+                o = getServices((String) params[0]);
+                break;
             default:
                 super.invoke(actionName, params, signature);
         }
