@@ -17,6 +17,7 @@ import pl.edu.agh.goodsim.helper.MethodEnvelope;
 public class ProducerAgent extends ClientAgent {
    private static final String SERVICE_REGISTRY_NAME = "ServiceRegistry";
    private static final String DESCRIPTION = "Producer Agent";
+   private AID serviceRegistryAID;
    private List<Good> storedGoods;
 
    public ProducerAgent(){
@@ -34,13 +35,20 @@ public class ProducerAgent extends ClientAgent {
       super.setup();
       System.out.println("Hello! I am the ProducerAgent: " + getAID().getName());
 
-      registerService();
+	   serviceRegistryAID = getServiceRegistryAID();
+	   if(serviceRegistryAID != null) {
+		   registerService();		   
+	   } else {
+		   System.out.println("Cannot obtain ServiceRegistry AID");
+	   }
    }
 
    @Override
    protected void takeDown() {
       super.takeDown();
-      unregisterService();
+      if(serviceRegistryAID != null) {
+    	  unregisterService();
+      }
       System.out.println("Producer is dead!");
    }
 
@@ -57,15 +65,8 @@ public class ProducerAgent extends ClientAgent {
 
 	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
 	   msg.setContent( msgContent );
-
-	   // get ServiceRegistry AID and send ACLMessage
-	   AID serviceRegistryAID = getServiceRegistryAID();
-	   if(serviceRegistryAID != null) {
-		   msg.addReceiver(serviceRegistryAID);
-		   send(msg);
-	   }else{
-		   System.out.println("Cannot obtain ServiceRegistry AID");
-	   }
+	   msg.addReceiver(serviceRegistryAID);
+	   send(msg);
    }
 
    public void unregisterService() {
@@ -77,15 +78,8 @@ public class ProducerAgent extends ClientAgent {
 
 	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
 	   msg.setContent( msgContent );
-
-	   // get ServiceRegistry AID and send ACLMessage
-	   AID serviceRegistryAID = getServiceRegistryAID();
-	   if(serviceRegistryAID != null) {
-		   msg.addReceiver(serviceRegistryAID);
-		   send(msg);
-	   }else{
-		   System.out.println("Cannot obtain ServiceRegistry AID");
-	   }
+	   msg.addReceiver(serviceRegistryAID);
+	   send(msg);
    }
 
    public AID getServiceRegistryAID() {
