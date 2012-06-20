@@ -347,10 +347,11 @@ public class ClientAgent extends JademxAgent {
     * MAS/JMX EVENTS (What can agent do himself)
     */
 
-    private void getServices(List<String> goodsTypes) {
+    private Map<String, List<Reputation>> getServices(List<String> goodsTypes) {
         // TODO use it from JMX uncomment for easy testing
 //	   goodsTypes = new LinkedList<String>();
 //	   goodsTypes.add("ServiceTypeName");
+    	Map<String, List<Reputation>> result = new HashMap<String, List<Reputation>>();
 
         MethodEnvelope me = new MethodEnvelope();
         me.setFunctionName("getServices");
@@ -361,20 +362,13 @@ public class ClientAgent extends JademxAgent {
         msg.setContent(msgContent);
         msg.addReceiver(serviceRegistryAID);
         send(msg);
-
-        addBehaviour(new CyclicBehaviour(this) {
-            public void action() {
-                ACLMessage reply = receive();
-                if (reply != null) {
-                    MethodEnvelope replyEnvelope = MethodEnvelope.fromXML(reply.getContent());
-                    Map<String, List<Reputation>> result = replyEnvelope.getArgument(0);
-
-                    // test if work
-                    System.out.println(result.size());
-                }
-                block();
-            }
-        });
+        ACLMessage reply = blockingReceive();
+        if (reply != null) {
+            MethodEnvelope replyEnvelope = MethodEnvelope.fromXML(reply.getContent());
+            result = replyEnvelope.getArgument(0);
+        }
+        
+        return result;
     }
 
     private void sendIntention(ClientOffer intention) {
