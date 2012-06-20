@@ -37,7 +37,7 @@ public class Good {
         this.typeOfGoodName = typeOfGoodName;
     }
 
-    public void setAttributeValues(Map<Double, Object> attributeValues) {
+    public void setAttributeValues(Map<String, Double> attributeValues) {
         this.attributeValues = attributeValues;
     }
 }

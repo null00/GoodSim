@@ -2,7 +2,6 @@ package pl.edu.agh.goodsim.client;
 
 import com.thoughtworks.xstream.XStream;
 import jade.core.AID;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.AMSService;
 import jade.domain.FIPAAgentManagement.AMSAgentDescription;
 import jade.domain.FIPAAgentManagement.SearchConstraints;
@@ -57,6 +56,12 @@ public class ClientAgent extends JademxAgent {
     private static final String PREPARE_INTENTION_OPER_NAME = "prepareIntention";
     private static final String PREPARE_INTENTION_OPER_DESC = "method preparing intention";
     private static final String PREPARE_INTENTION_OPER_TYPE = Void.class.getName();
+    private static final String GET_SERVICES_OPER_NAME = "getServices";
+    private static final String GET_SERVICES_OPER_DESC = "gets services from ServiceRegistry";
+    private static final String GET_SERVICES_OPER_TYPE = Map.class.getName();
+    private static final String GOODS_TYPE_NAME = "goodsTypes";
+    private static final String GOODS_TYPE_TYPE = String.class.getName();
+    private static final String GOODS_TYPE_DESC = "goods Types";
 
 
     public ClientAgent() {
@@ -88,16 +93,6 @@ public class ClientAgent extends JademxAgent {
 
     protected MBeanInfo constructMBeanInfo() {
 
-        // attributes
-
-//      MBeanAttributeInfo aI[] = new MBeanAttributeInfo[]{
-//         new MBeanAttributeInfo(
-//            SOME_ATTR_NAME,
-//            String.class.getName(),
-//            SOME_ATTR_DESC,
-//            true, true, false)
-//      };
-
         MBeanAttributeInfo aI[] = new MBeanAttributeInfo[]{
                 new MBeanAttributeInfo(
                         "currentIntention",
@@ -107,18 +102,10 @@ public class ClientAgent extends JademxAgent {
                 )
         };
 
-        // constructors
-
         MBeanConstructorInfo cI[] = new MBeanConstructorInfo[0];
 
         // operations
 
-//      MBeanParameterInfo pIPing[] = {
-//         new MBeanParameterInfo(
-//            OPER_PING_AGENT_FULL_NAME_PARM_NAME,
-//            OPER_PING_AGENT_FULL_NAME_PARM_TYPE,
-//            OPER_PING_AGENT_FULL_NAME_PARM_DESC)
-//      };
         MBeanParameterInfo prepareIntention[] = {
                 new MBeanParameterInfo(
                         PREPARE_INTENTION_PARAM_NAME,
@@ -126,6 +113,13 @@ public class ClientAgent extends JademxAgent {
                         PREPARE_INTENTION_PARAM_DESC)
         };
 
+        MBeanParameterInfo[] getServicesSignature = {
+                new MBeanParameterInfo(
+                        GOODS_TYPE_NAME,
+                        GOODS_TYPE_TYPE,
+                        GOODS_TYPE_DESC
+                )
+        };
         MBeanOperationInfo oI[] = new MBeanOperationInfo[]{
                 new MBeanOperationInfo(
                         SAY_HELLO_OPER_NAME,
@@ -139,25 +133,15 @@ public class ClientAgent extends JademxAgent {
                         prepareIntention,
                         PREPARE_INTENTION_OPER_TYPE,
                         MBeanOperationInfo.ACTION
+                ),
+                new MBeanOperationInfo(
+                        GET_SERVICES_OPER_NAME,
+                        GET_SERVICES_OPER_DESC,
+                        getServicesSignature,
+                        GET_SERVICES_OPER_TYPE,
+                        MBeanOperationInfo.ACTION_INFO
                 )
         };
-
-
-        // notifications
-
-//      String notifications[] = {
-//         NOTIF_PINGED_NAME
-//      };
-//      String NOTIF_INFO_DESCRIPTION =
-//         "notification set for " + getClass().getName();
-//      MBeanNotificationInfo nI[] = new MBeanNotificationInfo[] {
-//         new MBeanNotificationInfo(
-//            notifications,
-//            Notification.class.getName(),
-//            NOTIF_INFO_DESCRIPTION )
-//      };
-
-        // now, MBeanInfo for this level of class hierarchy
 
         return new MBeanInfo(getClass().getName(),
                 DESCRIPTION,
@@ -348,10 +332,7 @@ public class ClientAgent extends JademxAgent {
     */
 
     private Map<String, List<Reputation>> getServices(List<String> goodsTypes) {
-        // TODO use it from JMX uncomment for easy testing
-//	   goodsTypes = new LinkedList<String>();
-//	   goodsTypes.add("ServiceTypeName");
-    	Map<String, List<Reputation>> result = new HashMap<String, List<Reputation>>();
+        Map<String, List<Reputation>> result = new HashMap<String, List<Reputation>>();
 
         MethodEnvelope me = new MethodEnvelope();
         me.setFunctionName("getServices");
@@ -367,7 +348,7 @@ public class ClientAgent extends JademxAgent {
             MethodEnvelope replyEnvelope = MethodEnvelope.fromXML(reply.getContent());
             result = replyEnvelope.getArgument(0);
         }
-        
+
         return result;
     }
 
@@ -520,20 +501,11 @@ public class ClientAgent extends JademxAgent {
             case PREPARE_INTENTION_OPER_NAME:
                 prepareIntention((String) params[0]);
                 break;
+            case GET_SERVICES_OPER_NAME:
+                o = getServices((List<String>) params[0]);
             default:
                 super.invoke(actionName, params, signature);
         }
-//        if (SAY_HELLO_OPER_NAME.equals(actionName) &&
-//                MBeanUtil.signaturesEqual(new String[]{}, signature)) {
-//            try {
-//                o = sayHello();
-//            } catch (Exception e) {
-//                throw new MBeanException(e,
-//                        "exception invoking " + SAY_HELLO_OPER_NAME + " operation");
-//            }
-//        } else {
-//            super.invoke(actionName, params, signature);
-//        }
         return o;
     }
 

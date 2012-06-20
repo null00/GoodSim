@@ -16,7 +16,7 @@ import java.util.Map;
 public class Testing {
 
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         ClientOffer offer = new ClientOffer();
         offer.setClientId("client");
@@ -30,10 +30,8 @@ public class Testing {
 
         XStream xStream = new XStream(new DomDriver());
         String offerString = xStream.toXML(offer);
-
-//        xStream.alias("ClientOffer", ClientOffer.class);
-        ClientOffer actualOffer = null;
-        xStream.fromXML(offerString, actualOffer);
+        System.out.println(offerString);
+        ClientOffer actualOffer = (ClientOffer) xStream.fromXML(offerString);
         System.out.println(actualOffer.getClientId());
         System.out.println(actualOffer.getInputGoods());
         System.out.println(actualOffer.getOutputGoods());
@@ -42,7 +40,7 @@ public class Testing {
     private static Good createDeska() {
         Good result = new Good();
         result.setTypeOfGoodName("deska");
-        Map<Double, Object> attributeValues = new HashMap<Double, Object>();
+        Map<String, Double> attributeValues = new HashMap<String, Double>();
         result.setAttributeValues(attributeValues);
         return result;
     }
@@ -50,7 +48,7 @@ public class Testing {
     private static Good createDrewno() {
         Good result = new Good();
         result.setTypeOfGoodName("drewno");
-        Map<Double, Object> attributeValues = new HashMap<Double, Object>();
+        Map<String, Double> attributeValues = new HashMap<String, Double>();
         result.setAttributeValues(attributeValues);
         return result;
     }
