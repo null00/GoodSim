@@ -347,21 +347,24 @@ public class ClientAgent extends JademxAgent {
     * MAS/JMX EVENTS (What can agent do himself)
     */
 
-    private Map<String, List<Reputation>> getServices(List<String> goodsTypes) {
+    private List<String> getServices(String goodType) {
         // TODO use it from JMX uncomment for easy testing
 //	   goodsTypes = new LinkedList<String>();
 //	   goodsTypes.add("ServiceTypeName");
-    	Map<String, List<Reputation>> result = new HashMap<String, List<Reputation>>();
+    	List<String> result = new LinkedList<String>();
 
         MethodEnvelope me = new MethodEnvelope();
         me.setFunctionName("getServices");
-        me.addArgument(goodsTypes);
+        me.addArgument(goodType);
         String msgContent = me.toXML();
 
+        //send message
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         msg.setContent(msgContent);
         msg.addReceiver(serviceRegistryAID);
         send(msg);
+        
+        //receive result
         ACLMessage reply = blockingReceive();
         if (reply != null) {
             MethodEnvelope replyEnvelope = MethodEnvelope.fromXML(reply.getContent());

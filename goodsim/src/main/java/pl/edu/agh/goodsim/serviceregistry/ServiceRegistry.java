@@ -56,8 +56,8 @@ public class ServiceRegistry extends JademxAgent {
 						String agentName = me.getArgument(1);
 						sr.unregisterService(serviceTypeName, agentName);
 					} else if(functionName.equals("getServices")){
-						List<String> goodsTypes = me.getArgument(0);
-						Map<String, List<Reputation>> result = sr.getServices(goodsTypes);
+						String goodType = me.getArgument(0);
+						List<String> result = sr.getServices(goodType);
 						
 						MethodEnvelope replyEnvelope = new MethodEnvelope();
 						replyEnvelope.setFunctionName("reply");
@@ -116,6 +116,12 @@ public class ServiceRegistry extends JademxAgent {
 			}
 		}
 		return servicesMap;
+	}
+
+	public List<String> getServices(String goodType) {
+		List<String> result = new LinkedList<>();
+
+		return result;
 	}
 
 	public Reputation getClientComment(String clientAgentName) {
