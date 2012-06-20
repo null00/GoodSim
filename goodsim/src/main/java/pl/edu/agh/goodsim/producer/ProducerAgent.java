@@ -40,6 +40,7 @@ public class ProducerAgent extends ClientAgent {
    @Override
    protected void takeDown() {
       super.takeDown();
+      unregisterService();
       System.out.println("Producer is dead!");
    }
 
@@ -50,6 +51,26 @@ public class ProducerAgent extends ClientAgent {
    public void registerService() {
 	   MethodEnvelope me = new MethodEnvelope();
 	   me.setFunctionName("registerService");
+	   me.addArgument("ServiceTypeName");
+	   me.addArgument(getAID().getName());
+	   String msgContent = me.toXML();
+
+	   ACLMessage msg = new ACLMessage( ACLMessage.REQUEST );
+	   msg.setContent( msgContent );
+
+	   // get ServiceRegistry AID and send ACLMessage
+	   AID serviceRegistryAID = getServiceRegistryAID();
+	   if(serviceRegistryAID != null) {
+		   msg.addReceiver(serviceRegistryAID);
+		   send(msg);
+	   }else{
+		   System.out.println("Cannot obtain ServiceRegistry AID");
+	   }
+   }
+
+   public void unregisterService() {
+	   MethodEnvelope me = new MethodEnvelope();
+	   me.setFunctionName("unregisterService");
 	   me.addArgument("ServiceTypeName");
 	   me.addArgument(getAID().getName());
 	   String msgContent = me.toXML();
