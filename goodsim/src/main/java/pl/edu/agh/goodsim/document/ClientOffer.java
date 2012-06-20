@@ -46,6 +46,15 @@ public class ClientOffer {
         return inputGoods;
     }
 
+    public List<String> getInputGoodsNames() {
+    	List<String> inputGoodsNames = new LinkedList<String>();
+    	for(Good inputGood : inputGoods) {
+    		inputGoodsNames.add( inputGood.getTypeOfGoodName() );
+    	}
+
+    	return inputGoodsNames;
+    }
+
     public List<Good> getOutputGoods() {
         return outputGoods;
     }

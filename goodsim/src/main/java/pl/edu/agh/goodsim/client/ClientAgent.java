@@ -359,16 +359,18 @@ public class ClientAgent extends JademxAgent {
     }
 
     private void sendIntention(ClientOffer intention) {
-        MethodEnvelope me = new MethodEnvelope();
-        me.setFunctionName("intention");
-        me.addArgument(intention);
-        String msgContent = me.toXML();
+    	MethodEnvelope me = new MethodEnvelope();
+    	me.setFunctionName("intention");
+    	me.addArgument(intention);
+    	String msgContent = me.toXML();
 
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.setContent(msgContent);
-        //TODO add receivers
-        //msg.addReceiver();
-        //send(msg);
+    	ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+    	msg.setContent(msgContent);
+
+    	for(String agentName : getServices( intention.getInputGoodsNames().get(0) )) {
+    		msg.addReceiver(new AID(agentName, AID.ISLOCALNAME) );
+    	}
+    	send(msg);
     }
 
     private void sendCounterOffer(ClientOffer clientOffer) {
