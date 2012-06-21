@@ -20,12 +20,20 @@
                     <class>pl.edu.agh.goodsim.client.ClientAgent</class>
                 </agent-specifier>
                 <agent-specifier>
-                    <name>producer1</name>
-                    <class>pl.edu.agh.goodsim.producer.ProducerAgent</class>
+                    <name>producer1(sawmill)</name>
+                    <class>pl.edu.agh.goodsim.producer.Sawmill</class>
                 </agent-specifier>
                 <agent-specifier>
-                    <name>producer2</name>
-                    <class>pl.edu.agh.goodsim.producer.ProducerAgent</class>
+                    <name>producer2(sawmill)</name>
+                    <class>pl.edu.agh.goodsim.producer.Sawmill</class>
+                </agent-specifier>
+                <agent-specifier>
+                    <name>producer3(lumberjack)</name>
+                    <class>pl.edu.agh.goodsim.producer.Lumberjack</class>
+                </agent-specifier>
+               <agent-specifier>
+                    <name>producer4(lumberjack)</name>
+                    <class>pl.edu.agh.goodsim.producer.Lumberjack</class>
                 </agent-specifier>
             </agent-specifiers>
         </platform>

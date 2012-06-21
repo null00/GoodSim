@@ -13,6 +13,7 @@ import pl.edu.agh.goodsim.helper.MethodEnvelope;
 public class ProducerAgent extends ClientAgent {
    private static final String DESCRIPTION = "Producer Agent";
    private List<Good> storedGoods;
+   protected String serviceTypeName = "ServiceTypeName";
 
    public ProducerAgent(){
       super();
@@ -73,7 +74,7 @@ public class ProducerAgent extends ClientAgent {
    public void registerService() {
 	   MethodEnvelope me = new MethodEnvelope();
 	   me.setFunctionName("registerService");
-	   me.addArgument("ServiceTypeName");
+	   me.addArgument(serviceTypeName);
 	   me.addArgument(getAID().getName());
 	   String msgContent = me.toXML();
 

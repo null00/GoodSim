@@ -51,6 +51,7 @@ public class ServiceRegistry extends JademxAgent {
 						String serviceTypeName = me.getArgument(0);
 						String agentName = me.getArgument(1);
 						sr.registerService(serviceTypeName, agentName);
+
 					} else if(functionName.equals("unregisterService")){
 						String serviceTypeName = me.getArgument(0);
 						String agentName = me.getArgument(1);
@@ -71,7 +72,7 @@ public class ServiceRegistry extends JademxAgent {
 				} else if (msg != null) {
 					System.out.format( "%s: receive msg %n%s%n", myAgent.getLocalName(), msg.getContent() );
 				}
-				block();
+				block(1000);
 			}
 		});
 	}
