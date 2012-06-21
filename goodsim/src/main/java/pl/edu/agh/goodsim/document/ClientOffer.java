@@ -11,10 +11,6 @@ public class ClientOffer {
     private List<Good> inputGoods;
     private List<Good> outputGoods;
 
-    public ClientOffer() {
-        super();
-    }
-
     @ConstructorProperties({"clientId", "inputGoods", "outputGoods"})
     public ClientOffer(String clientId, List<Good> inputGoods, List<Good> outputGoods) {
         this.clientId = clientId;
@@ -22,8 +18,7 @@ public class ClientOffer {
         this.outputGoods = outputGoods;
     }
 
-    public String getClientId() {
-        return clientId;
+    public ClientOffer(){
     }
 
     public List<String> getInputGoodsTypes() {
@@ -42,10 +37,6 @@ public class ClientOffer {
         return outputGoodTypes;
     }
 
-    public List<Good> getInputGoods() {
-        return inputGoods;
-    }
-
     public List<String> getInputGoodsNames() {
     	List<String> inputGoodsNames = new LinkedList<String>();
     	for(Good inputGood : inputGoods) {
@@ -55,16 +46,24 @@ public class ClientOffer {
     	return inputGoodsNames;
     }
 
-    public List<Good> getOutputGoods() {
-        return outputGoods;
+    public String getClientId() {
+        return clientId;
     }
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
 
+    public List<Good> getInputGoods() {
+        return inputGoods;
+    }
+
     public void setInputGoods(List<Good> inputGoods) {
         this.inputGoods = inputGoods;
+    }
+
+    public List<Good> getOutputGoods() {
+        return outputGoods;
     }
 
     public void setOutputGoods(List<Good> outputGoods) {

@@ -14,6 +14,7 @@ import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.helper.MethodEnvelope;
+import pl.edu.agh.goodsim.jmx.iface.ClientAgentMXBean;
 import pl.edu.agh.goodsim.serviceregistry.Reputation;
 import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 import pl.edu.agh.goodsim.type.ContractStatusEnum;
@@ -26,13 +27,16 @@ import java.util.Map.Entry;
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
-public class ClientAgent extends JademxAgent {
+public class ClientAgent extends JademxAgent implements ClientAgentMXBean{
 
     private static final long serialVersionUID = 1L;
     private static final String DESCRIPTION = "Client Agent";
     private static final String SERVICE_REGISTRY_NAME = "ServiceRegistry";
     protected static final String SAY_HELLO_OPER_NAME = "sayHello";
     protected static final String SAY_HELLO_OPER_DESC = "says hello";
+    public static final String CURRENT_INTENTION_ATTR_NAME = "currentIntention";
+    public static final String CURRENT_INTENTION_ATTR_DESC = "intention prepared for sending";
+    public static final String CURRENT_INTENTION_ATTR_TYPE = ClientOffer.class.getName();
     private Map<String, TaskValues> contracts;
     protected ServiceRegistry _serviceRegistry;
     protected AID serviceRegistryAID;
@@ -62,6 +66,9 @@ public class ClientAgent extends JademxAgent {
     private static final String GOODS_TYPE_NAME = "goodsTypes";
     private static final String GOODS_TYPE_TYPE = String.class.getName();
     private static final String GOODS_TYPE_DESC = "goods Types";
+    private static final String SEND_INTENTION_OPER_NAME = "sendIntention";
+    private static final String SEND_INTENTION_OPER_DESC = "sends intention to producers";
+    private static final String SEND_INTENTION_OPER_TYPE = Void.class.getName();
 
 
     public ClientAgent() {
@@ -93,11 +100,13 @@ public class ClientAgent extends JademxAgent {
 
     protected MBeanInfo constructMBeanInfo() {
 
+        // attributes
+
         MBeanAttributeInfo aI[] = new MBeanAttributeInfo[]{
                 new MBeanAttributeInfo(
-                        "currentIntention",
-                        ClientOffer.class.getName(),
-                        "intention prepared for sending",
+                        CURRENT_INTENTION_ATTR_NAME,
+                        CURRENT_INTENTION_ATTR_TYPE,
+                        CURRENT_INTENTION_ATTR_DESC,
                         true, true, false
                 )
         };
@@ -140,6 +149,13 @@ public class ClientAgent extends JademxAgent {
                         getServicesSignature,
                         GET_SERVICES_OPER_TYPE,
                         MBeanOperationInfo.ACTION_INFO
+                )      ,
+                new MBeanOperationInfo(
+                        SEND_INTENTION_OPER_NAME,
+                        SEND_INTENTION_OPER_DESC,
+                        null,
+                        SEND_INTENTION_OPER_TYPE,
+                        MBeanOperationInfo.ACTION
                 )
         };
 
@@ -316,7 +332,7 @@ public class ClientAgent extends JademxAgent {
     }
 
     public void prepareIntention(String intention) {
-        ClientOffer clientOffer = new ClientOffer();
+        ClientOffer clientOffer = new ClientOffer("client", new ArrayList<Good>(), new ArrayList<Good>());
         XStream xStream = new XStream();
         xStream.alias("ClientOffer", ClientOffer.class);
         xStream.fromXML(intention, clientOffer);
@@ -332,9 +348,6 @@ public class ClientAgent extends JademxAgent {
     */
 
     private List<String> getServices(String goodType) {
-        // TODO use it from JMX uncomment for easy testing
-//	   goodsTypes = new LinkedList<String>();
-//	   goodsTypes.add("ServiceTypeName");
         List<String> result = new LinkedList<String>();
 
         MethodEnvelope me = new MethodEnvelope();
@@ -359,18 +372,18 @@ public class ClientAgent extends JademxAgent {
     }
 
     private void sendIntention(ClientOffer intention) {
-    	MethodEnvelope me = new MethodEnvelope();
-    	me.setFunctionName("intention");
-    	me.addArgument(intention);
-    	String msgContent = me.toXML();
+        MethodEnvelope me = new MethodEnvelope();
+        me.setFunctionName("intention");
+        me.addArgument(intention);
+        String msgContent = me.toXML();
 
-    	ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-    	msg.setContent(msgContent);
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        msg.setContent(msgContent);
 
-    	for(String agentName : getServices( intention.getInputGoodsNames().get(0) )) {
-    		msg.addReceiver(new AID(agentName, AID.ISLOCALNAME) );
-    	}
-    	send(msg);
+        for (String agentName : getServices(intention.getInputGoodsNames().get(0))) {
+            msg.addReceiver(new AID(agentName, AID.ISLOCALNAME));
+        }
+        send(msg);
     }
 
     private void sendCounterOffer(ClientOffer clientOffer) {
@@ -401,15 +414,6 @@ public class ClientAgent extends JademxAgent {
         return "I, " + getAID().getName() + " welcome you Sir!";
     }
 
-    public int getCacheSize() {
-        return this.cacheSize;
-    }
-
-    public void setCacheSize(int size) {
-        this.cacheSize = size;
-        System.out.println("Cache size now " + this.cacheSize);
-    }
-
     // MBEAN INTERFACE TO ATTRIBUTE AND OPERATION
 
     /**
@@ -430,21 +434,12 @@ public class ClientAgent extends JademxAgent {
             ReflectionException {
         Object o;
         switch (attribute) {
-            case "currentIntention":
-                o = getCurrentIntention();
-                break;
+            case CURRENT_INTENTION_ATTR_NAME:
+                return getCurrentIntention();
             default:
                 o = super.getAttribute(attribute);
                 break;
         }
-        // attributes known about directly at this level
-//      if (attribute.equals("SomeName")) {
-//         o = getSomeName();
-//      }
-        // attributes known by parent class
-//      else {
-//        o = super.getAttribute(attribute);
-//      }
         return o;
     }
 
@@ -463,29 +458,27 @@ public class ClientAgent extends JademxAgent {
 
         String attributeName = attribute.getName();
         Object v = attribute.getValue();
-        // attributes known about directly at this level
-//      if ("SomeName".equals(attributeName)) {
-//         String s;
-//         try {
-//            s = (String) v;
-//         } catch (ClassCastException cce) {
-//            throw new InvalidAttributeValueException("for attribute " +
-//               " need " + String.class.getName() + " got " +
-//               v.getClass().getName());
-//         }
-//         try {
-//            setResponse(s);
-//            invoking directly, not indirectly,
-//            so can't throw ReflectionException
-//         } catch (Exception e) {
-//            throw new MBeanException(e,
-//               "exception setting " + "SomeName" + " attribute");
-//         }
-//      }
-        // attributes known by parent class
-//      else {
+        switch (attributeName) {
+            case CURRENT_INTENTION_ATTR_NAME:
+                ClientOffer offer;
+                try {
+                    offer = (ClientOffer) v;
+                } catch (ClassCastException ex) {
+                    throw new InvalidAttributeValueException("for attribute " +
+                            " need " + String.class.getName() + " got " +
+                            v.getClass().getName());
+                }
+                try {
+                    setCurrentIntention(offer);
+                } catch (Exception e) {
+                    throw new MBeanException(e,
+                            "exception setting " + CURRENT_INTENTION_ATTR_NAME + " attribute");
+                }
+
+                break;
+
+        }
         super.setAttribute(attribute);
-//      }
     }
 
 
@@ -511,6 +504,9 @@ public class ClientAgent extends JademxAgent {
                 break;
             case GET_SERVICES_OPER_NAME:
                 o = getServices((String) params[0]);
+                break;
+            case SEND_INTENTION_OPER_NAME:
+                sendIntention(currentIntention);
                 break;
             default:
                 super.invoke(actionName, params, signature);
@@ -539,5 +535,9 @@ public class ClientAgent extends JademxAgent {
 
     public ClientOffer getCurrentIntention() {
         return currentIntention;
+    }
+
+    public void setCurrentIntention(ClientOffer currentIntention) {
+        this.currentIntention = currentIntention;
     }
 }
