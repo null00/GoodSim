@@ -14,7 +14,6 @@ import pl.edu.agh.goodsim.document.Offer;
 import pl.edu.agh.goodsim.document.Supply;
 import pl.edu.agh.goodsim.entity.Good;
 import pl.edu.agh.goodsim.helper.MethodEnvelope;
-import pl.edu.agh.goodsim.jmx.iface.ClientAgentMXBean;
 import pl.edu.agh.goodsim.serviceregistry.Reputation;
 import pl.edu.agh.goodsim.serviceregistry.ServiceRegistry;
 import pl.edu.agh.goodsim.type.ContractStatusEnum;
@@ -27,7 +26,7 @@ import java.util.Map.Entry;
 /**
  * @author Mateusz Rudnicki <rudnicki@student.agh.edu.pl>
  */
-public class ClientAgent extends JademxAgent implements ClientAgentMXBean{
+public class ClientAgent extends JademxAgent {
 
     private static final long serialVersionUID = 1L;
     private static final String DESCRIPTION = "Client Agent";
@@ -149,7 +148,7 @@ public class ClientAgent extends JademxAgent implements ClientAgentMXBean{
                         getServicesSignature,
                         GET_SERVICES_OPER_TYPE,
                         MBeanOperationInfo.ACTION_INFO
-                )      ,
+                ),
                 new MBeanOperationInfo(
                         SEND_INTENTION_OPER_NAME,
                         SEND_INTENTION_OPER_DESC,
